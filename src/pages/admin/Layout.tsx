@@ -1,7 +1,8 @@
-// import { useSession } from "next-auth/react";
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, { Suspense, createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MdArticle, MdSettings, MdPhotoLibrary } from "react-icons/md";
+import { useQuery } from "@blitzjs/rpc";
+import getThumbnailsQuery from "src/images/queries/getThumbnails";
 
 export enum Page {
   posts = "Posts",
@@ -16,8 +17,7 @@ interface ContextState {
   setThumbnailPage: React.Dispatch<React.SetStateAction<number>>;
   thumbnailsPerPage: number;
   paginatedThumbnailUrls: Array<string[]>;
-  setPaginatedThumbnailUrls: React.Dispatch<React.SetStateAction<Array<string[]>>>;
-  fetchThumbnails: () => Promise<void>;
+  fetchThumbnails: () => Promise<any>;
 }
 
 export const Context = createContext<ContextState>({} as ContextState);
@@ -26,28 +26,22 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function ContextProvider(props: Props) {
-  //   const session = useSession({ required: true });
+const withSuspense = (Component: React.FC) => {
+  return (props) => (
+    <Suspense fallback="loading admin dashboard...">
+      <Component {...props} />
+    </Suspense>
+  );
+};
+
+function ContextProvider(props: Props) {
   const [page, setPage] = useState(Page.posts);
   const [thumbnailPage, setThumbnailPage] = useState(0);
   const [thumbnailsPerPage, setThumnailsPerPage] = useState(10);
-  const [paginatedThumbnailUrls, setPaginatedThumbnailUrls] = useState<Array<string[]>>([]);
 
-  useEffect(() => {
-    fetchThumbnails();
-  }, []);
-
-  const fetchThumbnails = useCallback(async () => {
-    const res = await fetch(`/api/images?thumbnailsPerPage=${thumbnailsPerPage}`);
-
-    const data = await res.json();
-
-    if (data.json.paginatedThumbnailUrls) {
-      setPaginatedThumbnailUrls(data.json.paginatedThumbnailUrls);
-    }
-  }, []);
-
-  //   if (!session.data?.user) return null;
+  const [{ paginatedThumbnailUrls }, { refetch: fetchThumbnails }] = useQuery(getThumbnailsQuery, {
+    thumbnailsPerPage,
+  });
 
   return (
     <Context.Provider
@@ -58,11 +52,12 @@ export default function ContextProvider(props: Props) {
         setThumbnailPage,
         thumbnailsPerPage,
         paginatedThumbnailUrls,
-        setPaginatedThumbnailUrls,
         fetchThumbnails,
       }}
     >
-      <AdminLayout>{props.children}</AdminLayout>
+      <Suspense fallback="loading admin dashboard...">
+        <AdminLayout>{props.children}</AdminLayout>
+      </Suspense>
     </Context.Provider>
   );
 }
@@ -115,3 +110,5 @@ function AdminLayout(props: Props) {
     </div>
   );
 }
+
+export default withSuspense(ContextProvider);

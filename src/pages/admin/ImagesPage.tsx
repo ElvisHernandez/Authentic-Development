@@ -1,10 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { MdCancel } from "react-icons/md";
 
 import { Context } from "./Layout";
 
 import Image from "next/image";
-// import { ImageSize } from "../api/images/types";
+import { useMutation } from "@blitzjs/rpc";
+import { ImageSize } from "../../images/types";
+import uploadImageResolver from "../../images/mutations/uploadImage";
+import deleteImageResolver from "../../images/mutations/deleteImage";
 
 interface ThumbnailGridProps {
   onThumbnailClick?: (thumbnailUrl: string) => Promise<void>;
@@ -48,35 +51,31 @@ export function ThumbnailGrid(props: ThumbnailGridProps) {
 export default function ImagesPage() {
   const context = useContext(Context);
   const { fetchThumbnails, paginatedThumbnailUrls, thumbnailPage } = useContext(Context);
+  const [uploadImageMutation] = useMutation(uploadImageResolver);
+  const [deleteImageMutation] = useMutation(deleteImageResolver);
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    await fetch("/api/images", {
-      method: "post",
-      body: formData,
-    });
-
-    fetchThumbnails();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      const base64Data = reader.result;
+      await uploadImageMutation({ file: base64Data as string, fileName: file.name });
+      fetchThumbnails();
+      e.target.value = "";
+    };
   };
 
   const deleteImage = async (thumbnailUrl: string) => {
-    // const [_, incompleteKey] = thumbnailUrl.split(`${ImageSize.small}-`);
-    // const s3ObjectKeys = [ImageSize.small, ImageSize.medium, ImageSize.large].map(
-    //   (size) => `${size}-${incompleteKey}`
-    // );
-    // await fetch("/api/images", {
-    //   method: "delete",
-    //   body: JSON.stringify({
-    //     s3ObjectKeys,
-    //   }),
-    // });
-    // fetchThumbnails();
+    const [_, incompleteKey] = thumbnailUrl.split(`${ImageSize.small}-`);
+    const s3ObjectKeys = [ImageSize.small, ImageSize.medium, ImageSize.large].map(
+      (size) => `${size}-${incompleteKey}`
+    );
+
+    await deleteImageMutation({ s3ObjectKeys });
+    fetchThumbnails();
   };
 
   return (

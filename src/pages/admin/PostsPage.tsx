@@ -1,11 +1,7 @@
-"use client";
-import React, { useContext, useRef, useState } from "react";
-import { MdImage } from "react-icons/md";
-
+import React, { useContext, useState } from "react";
 import { Post } from "@prisma/client";
 
 import { Context } from "./Layout";
-import { ThumbnailGrid } from "./ImagesPage";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import getPosts from "src/posts/queries/getPosts";
 import MarkdownEditor from "src/core/components/MarkdownEditor";
@@ -153,69 +149,11 @@ interface PostEditorProps {
   handleSubmit: (e: React.MouseEvent<HTMLButtonElement>, post: Partial<Post>) => Promise<void>;
 }
 
-function ImageModal(props: {
-  modalRef: React.Ref<HTMLDialogElement>;
-  imageInserter: (imageUrl: string) => Promise<void>;
-}) {
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  const closeDialogOnBackdropClickHandler = (e: React.MouseEvent<HTMLDialogElement>) => {
-    const { target } = e;
-
-    if (target === modalRef.current) {
-      modalRef.current.close();
-    }
-  };
-
-  return (
-    <dialog ref={props.modalRef} className="modal" onClick={closeDialogOnBackdropClickHandler}>
-      <form method="dialog" className="modal-box min-w-[700px]">
-        <ThumbnailGrid onThumbnailClick={props.imageInserter} />
-        <div className="modal-action">
-          {/* if there is a button in form, it will close the modal */}
-          <button className="btn">Close</button>
-        </div>
-      </form>
-    </dialog>
-  );
-}
-
 function PostEditor(props: PostEditorProps) {
   const { post, setPost, handleSubmit, mode } = props;
 
-  const modalRef = useRef<HTMLDialogElement>(null);
-  const [imageInserter, setImageInserter] = useState<(s: string) => Promise<void>>(
-    () => async (s: string) => {}
-  );
-
-  //   const imageInsert: ICommand = {
-  //     name: "Insert Image",
-  //     keyCommand: "insert-image",
-  //     icon: <MdImage />,
-  //     execute: ({ state, view }) => {
-  //       if (!state || !view) return;
-
-  //       const imageInserter = async (imageUrl: string) => {
-  //         const mediumImageUrl = imageUrl.replace("small", "medium");
-
-  //         view.dispatch({
-  //           changes: {
-  //             from: view.state.selection.main.from,
-  //             insert: `![](${mediumImageUrl})`,
-  //           },
-  //         });
-
-  //         modalRef.current?.close();
-  //       };
-
-  //       modalRef.current?.showModal();
-  //       setImageInserter(() => imageInserter);
-  //     },
-  //   };
-
   return (
     <>
-      <ImageModal modalRef={modalRef} imageInserter={imageInserter} />
       <form>
         <input
           type="text"
@@ -225,16 +163,9 @@ function PostEditor(props: PostEditorProps) {
           className="mb-[16px] input input-bordered w-full max-w-xs"
         />
 
-        {/* <MarkdownEditor
-          value={post.content}
-          onChange={(value, viewUpdate) => setPost({ content: value })}
-          toolbars={[imageInsert]}
-          className="min-h-[300px]"
-        /> */}
-
         <MarkdownEditor
           value={post.content}
-          onChange={(e) => setPost({ content: e.target.value })}
+          updateValue={(value: string) => setPost({ content: value })}
         />
 
         <button

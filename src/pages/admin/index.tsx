@@ -1,18 +1,11 @@
 import { BlitzPage, getSession } from "@blitzjs/auth";
-import db from "db";
 import { GetServerSideProps } from "next";
 import { Suspense } from "react";
-import { getAdminEmail } from "src/utils/getEnvVars";
-
 import Layout from "./Layout";
 import { useSearchParams } from "next/navigation";
 import PostsPage from "./PostsPage";
 import ImagesPage from "./ImagesPage";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import isAdminUser from "src/utils/isAdminUser";
-import { useQuery } from "@blitzjs/rpc";
-import getPosts from "src/posts/queries/getPosts";
 
 const AdminPage: BlitzPage = () => {
   return (
@@ -29,10 +22,9 @@ export function AdminDashboard() {
 
   if (!page || page === "posts") {
     return <PostsPage />;
+  } else if (page === "images") {
+    return <ImagesPage />;
   }
-  // else if (page === "images") {
-  //   return <ImagesPage />;
-  // }
 
   return <p>Admin page</p>;
 }
