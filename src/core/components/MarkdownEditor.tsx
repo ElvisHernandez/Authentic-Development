@@ -71,9 +71,10 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
       <div className="relative h-[95%]">
         <textarea
           placeholder="Content"
-          className={`textarea textarea-bordered textarea-lg ${
-            showPreview ? "w-1/2" : "w-full"
-          } h-full rounded-none p-4 border-0 focus:outline-none`}
+          className={`textarea textarea-bordered textarea-lg 
+          ${showPreview ? "w-1/2" : "w-full"} 
+          ${fullScreen ? "h-screen" : "h-full"}
+          rounded-none p-4 border-0 focus:outline-none`}
           onChange={(e) => props.updateValue(e.target.value)}
           value={props.value}
         ></textarea>

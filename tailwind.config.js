@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        yellowtail: ["Yellowtail", "cursive"],
       },
     },
   },
@@ -17,19 +18,21 @@ module.exports = {
 
           secondary: "#acc643",
 
-          accent: "#fce1b5",
+          accent: "#3ab2ba",
 
           neutral: "#1c2931",
 
-          "base-100": "#3b424a",
+          "base-100": "#070508",
 
-          info: "#9face5",
+          info: "#fff",
 
           success: "#43db9e",
 
           warning: "#d3840d",
 
           error: "#f55b65",
+
+          white: "#fff",
         },
       },
     ],

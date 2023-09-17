@@ -1,15 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Yellowtail&display=swap");
+
 :root {
   --border-radius: 0.75rem;
   --screen-width: 90vmin;
 }
 
-
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -24,3 +26,379 @@ i {
 * {
   box-sizing: border-box;
 }
+/* *********************************************** */
+/* Home Page Nav Styles START*/
+/* *********************************************** */
+@keyframes slideout-1 {
+  from {
+    width: 218px;
+  }
+
+  to {
+    width: 250px;
+  }
+}
+
+@keyframes slideout-1-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 218px;
+  }
+}
+
+#home-nav-link-1,
+#home-nav-link-2,
+#home-nav-link-3,
+#home-nav-link-4,
+#home-nav-link-5,
+#home-nav-link-6,
+#home-nav-link-7,
+#home-nav-link-8,
+#home-nav-link-9,
+#home-nav-link-1,
+#home-nav-link-2,
+#home-nav-link-3,
+#home-nav-link-4,
+#home-nav-link-5,
+#home-nav-link-6,
+#home-nav-link-7,
+#home-nav-link-8,
+#home-nav-link-9 {
+  position: absolute;
+  transform: rotate(-45deg);
+  animation-fill-mode: forwards;
+  /* font-family: Yellowtail, cursive; */
+  font-size: large;
+  padding-left: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+#home-nav-link-1 {
+  right: 205px;
+  width: 218px;
+  height: 50px;
+  animation: slideout-1-start 1000ms;
+}
+
+#home-nav-link-1:hover {
+  animation: slideout-1 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-2 {
+  from {
+    width: 560px;
+  }
+
+  to {
+    width: 592px;
+  }
+}
+
+@keyframes slideout-2-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 560px;
+  }
+}
+
+#home-nav-link-2 {
+  right: -35px;
+  width: 560px;
+  height: 50px;
+  animation: slideout-2-start 1000ms;
+}
+
+#home-nav-link-2:hover {
+  animation: slideout-2 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-3 {
+  from {
+    width: 398px;
+  }
+
+  to {
+    width: 430px;
+  }
+}
+
+@keyframes slideout-3-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 398px;
+  }
+}
+
+#home-nav-link-3 {
+  right: -20px;
+  width: 398px;
+  height: 50px;
+  animation: slideout-3-start 1000ms;
+}
+
+#home-nav-link-3:hover {
+  animation: slideout-3 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-4 {
+  from {
+    width: 698px;
+  }
+
+  to {
+    width: 730px;
+  }
+}
+
+@keyframes slideout-4-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 698px;
+  }
+}
+
+#home-nav-link-4 {
+  right: -240px;
+  width: 698px;
+  height: 50px;
+  animation: slideout-4-start 1000ms;
+}
+
+#home-nav-link-4:hover {
+  animation: slideout-4 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-5 {
+  from {
+    width: 719px;
+  }
+
+  to {
+    width: 751px;
+  }
+}
+
+@keyframes slideout-5-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 719px;
+  }
+}
+
+#home-nav-link-5 {
+  right: -319px;
+  width: 719px;
+  height: 50px;
+  animation: slideout-5-start 1000ms;
+}
+
+#home-nav-link-5:hover {
+  animation: slideout-5 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-6 {
+  from {
+    width: 1148px;
+  }
+
+  to {
+    width: 1180px;
+  }
+}
+
+@keyframes slideout-6-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 1148px;
+  }
+}
+
+#home-nav-link-6 {
+  right: -602px;
+  width: 1148px;
+  height: 50px;
+  animation: slideout-6-start 1000ms;
+}
+
+#home-nav-link-6:hover {
+  animation: slideout-6 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-7 {
+  from {
+    width: 883px;
+  }
+
+  to {
+    width: 915px;
+  }
+}
+
+@keyframes slideout-7-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 883px;
+  }
+}
+
+#home-nav-link-7 {
+  right: -540px;
+  width: 883px;
+  height: 50px;
+  animation: slideout-7-start 1000ms;
+}
+
+#home-nav-link-7:hover {
+  animation: slideout-7 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-8 {
+  from {
+    width: 1129px;
+  }
+
+  to {
+    width: 1161px;
+  }
+}
+
+@keyframes slideout-8-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 1129px;
+  }
+}
+
+#home-nav-link-8 {
+  right: -731px;
+  width: 1129px;
+  height: 50px;
+  animation: slideout-8-start 1000ms;
+}
+
+#home-nav-link-8:hover {
+  animation: slideout-8 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideout-9 {
+  from {
+    width: 998px;
+  }
+
+  to {
+    width: 1030px;
+  }
+}
+
+@keyframes slideout-9-start {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 998px;
+  }
+}
+
+#home-nav-link-9 {
+  right: -737px;
+  width: 998px;
+  height: 50px;
+  animation: slideout-9-start 1000ms;
+}
+
+#home-nav-link-9:hover {
+  animation: slideout-9 500ms;
+  animation-fill-mode: forwards;
+}
+
+#home-nav-link-1::before,
+#home-nav-link-2::before,
+#home-nav-link-3::before,
+#home-nav-link-4::before,
+#home-nav-link-5::before,
+#home-nav-link-6::before,
+#home-nav-link-7::before,
+#home-nav-link-8::before,
+#home-nav-link-9::before,
+#home-nav-link-1::after,
+#home-nav-link-2::after,
+#home-nav-link-3::after,
+#home-nav-link-4::after,
+#home-nav-link-5::after,
+#home-nav-link-6::after,
+#home-nav-link-7::after,
+#home-nav-link-8::after,
+#home-nav-link-9::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #3ab2ba, #070508 70%);
+  pointer-events: none;
+}
+
+#home-nav-link-1::after,
+#home-nav-link-2::after,
+#home-nav-link-3::after,
+#home-nav-link-4::after,
+#home-nav-link-5::after,
+#home-nav-link-6::after,
+#home-nav-link-7::after,
+#home-nav-link-8::after,
+#home-nav-link-9::after {
+  top: 0;
+  bottom: 0;
+  left: 0px;
+  width: 2px;
+  background: linear-gradient(to bottom, #3ab2ba, #070508 90%);
+}
+#home-nav-link-1::before,
+#home-nav-link-2::before,
+#home-nav-link-3::before,
+#home-nav-link-4::before,
+#home-nav-link-5::before,
+#home-nav-link-6::before,
+#home-nav-link-7::before,
+#home-nav-link-8::before,
+#home-nav-link-9::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+/* *********************************************** */
+/* Home Page Nav Styles END*/
+/* *********************************************** */

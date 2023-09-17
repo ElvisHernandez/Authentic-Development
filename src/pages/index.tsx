@@ -55,11 +55,20 @@ const HomeContent = () => {
 
   return (
     <Layout title="Home">
-      <div className={styles.buttonContainer}>
+      {/* <div className={styles.buttonContainer}>
         <Suspense fallback="Loading...">
           <UserInfo />
         </Suspense>
-      </div>
+      </div> */}
+      <h1 className="text-5xl pl-[48px] pt-[350px]">Lets build an experience together</h1>
+
+      {/* <h1 className="text-5xl absolute top-[32%] left-[48px]">Lets build an experience together</h1> */}
+      <button className="btn btn-outline btn-accent normal-case mt-[24px] ml-[48px] w-[140px]">
+        Free Consult
+      </button>
+      <button className="btn btn-outline btn-info normal-case mt-[36px] ml-[48px] w-[140px]">
+        Services
+      </button>
     </Layout>
   );
 };
