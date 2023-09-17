@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head />
-        <body className="font-poppins">
+        <body className="font-poppins text-base-100">
           <Main />
           <NextScript />
         </body>

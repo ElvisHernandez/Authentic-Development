@@ -13,7 +13,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute">AD</div>
+      <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute text-white">AD</div>
 
       <div id="home-nav-link-1">Home</div>
       <div id="home-nav-link-2">About</div>
