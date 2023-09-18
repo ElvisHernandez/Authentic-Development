@@ -70,7 +70,6 @@ i {
   position: absolute;
   transform: rotate(-45deg);
   animation-fill-mode: forwards;
-  /* font-family: Yellowtail, cursive; */
   font-size: large;
   padding-left: 1.5rem;
   display: flex;

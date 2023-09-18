@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import { Routes, BlitzPage } from "@blitzjs/next";
@@ -55,6 +55,295 @@ const UserInfo = () => {
   }
 };
 
+const SectionHeader = (props: { sectionName: string }) => (
+  <div className="flex py-[48px]">
+    <div className="w-[40%] md:w-[42.5%] h-6 bg-gray-100"></div>
+    <h2 className="text-xl md:text-2xl w-[20%] md:w-[15%] text-base-100 text-center font-semibold">
+      {props.sectionName}
+    </h2>
+    <div className="w-[40%] md:w-[42.5%] h-6 bg-gray-100"></div>
+  </div>
+);
+
+const HeroSection = () => (
+  <section className="h-screen">
+    <h1 className="text-5xl pl-[48px] pt-[300px] text-white">Lets build an experience together</h1>
+    <p className="pl-[48px] pt-[24px] text-white">
+      My name is Elvis, I'm a full stack web developer and I specialize in making SaaS products for
+      startups
+    </p>
+
+    <button className="btn btn-outline btn-accent normal-case mt-[24px]  ml-[48px] w-[140px]">
+      Free Consult
+    </button>
+    <button className="btn btn-outline btn-info normal-case ml-[48px] w-[140px]">Services</button>
+  </section>
+);
+
+const AboutSection = () => (
+  <section>
+    <SectionHeader sectionName="About" />
+    <p>
+      Hi, I'm Elvis, and I specialize in turning your big ideas into reality through custom
+      software. With a strong foundation in science and engineering, I've been at the ground floor
+      of start-ups and have helped grow companies by providing them with the tools they need to
+      succeed. My passion lies in understanding your business goals and transforming them into
+      easy-to-use software solutions that not only work seamlessly but also drive revenue and
+      efficiency.
+    </p>
+    <p className="mt-[24px]">
+      I have a diverse set of skills that can help your business grow and stay competitive. Whether
+      you're looking to provide your customers with a standout digital experience or you're in need
+      of behind-the-scenes systems that make your business run smoothly, I've got the experience to
+      deliver. Let's talk about how I can help bring your vision to life.
+    </p>
+    <div className="flex justify-center pt-[48px]">
+      <Image className="rounded-full " alt="Me!" src={MeImage} height={300} width={300} />
+    </div>
+  </section>
+);
+
+const ServicesSection = () => (
+  <section>
+    <SectionHeader sectionName="Services" />
+
+    <p>
+      You've got the vision; we've got the expertise to bring it to life. Whether you're starting
+      from scratch or need to optimize your existing platform, we offer comprehensive solutions that
+      cater specifically to SaaS businesses.
+    </p>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 px-[48px] pt-[48px]">
+      <div className="text-center">
+        <MdEngineering className="h-[64px] w-[64px] mx-auto my-[12px]" />
+        <div className="font-medium mb-[12px]">End-to-End Development</div>
+        <p className="text-sm">
+          Why piece together multiple specialists when you can get it all done in one place? We
+          handle everything from initial sketches to the launch of your SaaS product. We even ensure
+          it runs smoothly after the big day.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <MdDesignServices className="h-[64px] w-[64px] mx-auto my-[12px]" />
+        <div className="font-medium mb-[12px]">User-Friendly Interfaces</div>
+        <p className="text-sm">
+          A great idea deserves a sleek and intuitive design. With your customer in mind, we create
+          engaging user experiences that not only look good but are easy to navigate.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <MdDataThresholding className="h-[64px] w-[64px] mx-auto my-[12px]" />
+        <div className="font-medium mb-[12px]">Data Optimization</div>
+        <p className="text-sm">
+          We implement smart data solutions that make your service faster and more reliable.
+          Understand your business better through key performance indicators and analytics that we
+          integrate seamlessly into your platform.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <MdOutlineIntegrationInstructions className="h-[64px] w-[64px] mx-auto my-[12px]" />
+        <div className="font-medium mb-[12px]">Seamless Third-Party Integrations</div>
+        <p className="text-sm">
+          Need to link up with other software or platforms? We've got you covered. Our expertise
+          allows for smooth integrations that extend your service's capabilities.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <MdPrivateConnectivity className="h-[64px] w-[64px] mx-auto my-[12px]" />
+        <div className="font-medium mb-[12px]">Secure & Scalable</div>
+        <p className="text-sm">
+          As your business grows, your platform should too. We build with scalability in mind,
+          ensuring that you can easily add features or users as needed. Rest easy knowing your data
+          and your users' data are well-protected.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <MdComputer className="h-[64px] w-[64px] mx-auto my-[12px]" />
+        <div className="font-medium mb-[12px]">24/7 Support & Maintenance</div>
+        <p className="text-sm">
+          We don't just disappear after launch. Our ongoing support and maintenance services ensure
+          your SaaS business continues to run smoothly, allowing you to focus on what you do
+          best—running your business.
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+const ProcessSection = () => {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const processSteps = [
+    {
+      name: "Discovery & Planning",
+      content: (
+        <ol className="p-8">
+          <li>
+            <span className="font-semibold text-primary">Initial Consultation</span>: Discuss the
+            client's vision, target audience, unique value proposition, and any existing resources
+            or requirements.
+          </li>
+          <li className="py-8">
+            <span className="font-semibold text-primary">Scope & Proposal</span>: Present a project
+            proposal including a timeline, cost estimates, and a list of deliverables.
+          </li>
+          <li>
+            <span className="font-semibold text-primary">Contract Signing</span>: Finalize the
+            agreement outlining the scope of work, payment terms, and other legalities.
+          </li>
+        </ol>
+      ),
+    },
+    {
+      name: "Design & Prototyping",
+      content: (
+        <ol className="p-8">
+          <li>
+            <span className="font-semibold text-primary">User Experience (UX) Design</span>: Work on
+            sketches or wireframes that focus on creating a user-friendly interface.
+          </li>
+          <li className="py-8">
+            <span className="font-semibold text-primary">User Interface (UI) Design</span>: Once the
+            UX is approved, proceed to finalize the visual elements like color schemes, typography,
+            and other design components.
+          </li>
+          <li>
+            <span className="font-semibold text-primary">Prototype Testing</span>: Validate the
+            design with a clickable prototype and make iterations based on client and user feedback.
+          </li>
+        </ol>
+      ),
+    },
+    {
+      name: "Development",
+      content: (
+        <ol className="p-8">
+          <li>
+            <span className="font-semibold text-primary">Backend & Frontend Development</span>:
+            Start the coding process, incorporating best practices for scalability and security.
+          </li>
+          <li className="py-8">
+            <span className="font-semibold text-primary">Data Optimization</span>: Integrate data
+            analytics tools and KPI (Key Performance Indicator) dashboards as part of the backend.
+          </li>
+          <li>
+            <span className="font-semibold text-primary">Third-Party Integrations</span>:
+            Incorporate necessary third-party services like payment gateways, social media logins,
+            or any other external APIs.
+          </li>
+        </ol>
+      ),
+    },
+    {
+      name: "Quality Assurance",
+      content: (
+        <ol className="p-8">
+          <li>
+            <span className="font-semibold text-primary">Testing</span>: Rigorous testing to catch
+            bugs, security loopholes, and any usability concerns.
+          </li>
+          <li className="py-8">
+            <span className="font-semibold text-primary">Client Review</span>: Allow the client to
+            review and approve the work before moving to the launch phase.
+          </li>
+        </ol>
+      ),
+    },
+    {
+      name: "Launch",
+      content: (
+        <ol className="p-8">
+          <li>
+            <span className="font-semibold text-primary">Deployment</span>: Make the SaaS product
+            live after final approval from the client.
+          </li>
+          <li className="py-8">
+            <span className="font-semibold text-primary">Monitoring</span>: Closely watch the
+            platform for any issues and to ensure everything is operating as intended.
+          </li>
+        </ol>
+      ),
+    },
+    {
+      name: "Post-Launch",
+      content: (
+        <ol className="p-8">
+          <li>
+            <span className="font-semibold text-primary">24/7 Support & Maintenance</span>: Ongoing
+            monitoring, updates, and customer support.
+          </li>
+          <li className="py-8">
+            <span className="font-semibold text-primary">Performance Analytics</span>: Regularly
+            update the client with performance metrics, helping them understand how the platform is
+            being used and how it can be improved.
+          </li>
+          <li>
+            <span className="font-semibold text-primary">Iterative Improvements</span>: Continuously
+            work with the client for any new features or improvements based on analytics and user
+            feedback.
+          </li>
+        </ol>
+      ),
+    },
+  ];
+
+  const getVerticalTimelineStyle = (index) => {
+    const isFirstStep = index === 0;
+    const isLastStep = index === processSteps.length - 1;
+    if (!isFirstStep && !isLastStep)
+      return {
+        background:
+          "linear-gradient(rgb(58, 178, 186) 0%, transparent 40%, transparent 61%, rgb(58, 178, 186) 100%)",
+      };
+
+    return {
+      background: `linear-gradient(to ${
+        isFirstStep ? "bottom" : "top"
+      }, transparent 0%, transparent 75%, #3ab2ba 70%, #3ab2ba 100%)`,
+    };
+  };
+
+  return (
+    <section className="pb-[144px]">
+      <SectionHeader sectionName="Process" />
+
+      <div className="grid grid-cols-2 mx-[0px]">
+        <div className="flex flex-col justify-center items-center">
+          {processSteps.map((processStep, i) => (
+            <div className="flex flex-row items-center relative">
+              <div className="mx-[12px] h-[64px] w-[168px] text-center flex justify-center items-center font-medium">
+                {processStep.name}
+              </div>
+              <div
+                className={`
+                h-8 w-8 rounded-full bg-black border-primary  flex z-10
+                justify-center items-center text-sm font-semibold cursor-pointer
+                ${i === currentStepIndex ? "text-primary" : "text-white"} 
+                ${i === currentStepIndex ? "border-2" : "border-0"}
+              `}
+                onClick={() => setCurrentStepIndex(i)}
+              >
+                {i + 1}
+              </div>
+              <div
+                className="w-[3px] h-full absolute left-[207px] bg-primary"
+                style={getVerticalTimelineStyle(i)}
+              ></div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-base-100 rounded-lg text-white text-base font-normal">
+          {processSteps[currentStepIndex]?.content}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const HomeContent = () => {
   const [result] = useQuery(getPosts, {});
   console.log(result);
@@ -66,114 +355,12 @@ const HomeContent = () => {
           <UserInfo />
         </Suspense>
       </div> */}
-      <h1 className="text-5xl pl-[48px] pt-[300px] text-white">
-        Lets build an experience together
-      </h1>
-      <p className="pl-[48px] pt-[24px] text-white">
-        My name is Elvis, I'm a full stack web developer and I specialize in making SaaS products
-        for startups
-      </p>
 
-      {/* <h1 className="text-5xl absolute top-[32%] left-[48px]">Lets build an experience together</h1> */}
-      <button className="btn btn-outline btn-accent normal-case mt-[24px]  ml-[48px] w-[140px]">
-        Free Consult
-      </button>
-      <button className="btn btn-outline btn-info normal-case ml-[48px] w-[140px]">Services</button>
-
-      <div className="mt-[200px]  bg-white pt-[48px]">
-        <div className="flex">
-          <div className="w-[45%] h-6 bg-gray-100"></div>
-          <h2 className="text-2xl w-[10%] text-base-100 text-center font-semibold">About</h2>
-          <div className="w-[45%] h-6 bg-gray-100"></div>
-        </div>
-        <p className="mx-[144px] mt-[24px]">
-          Hi, I'm Elvis, and I specialize in turning your big ideas into reality through custom
-          software. With a strong foundation in science and engineering, I've been at the ground
-          floor of start-ups and have helped grow companies by providing them with the tools they
-          need to succeed. My passion lies in understanding your business goals and transforming
-          them into easy-to-use software solutions that not only work seamlessly but also drive
-          revenue and efficiency.
-        </p>
-        <p className="mx-[144px] mt-[24px]">
-          I have a diverse set of skills that can help your business grow and stay competitive.
-          Whether you're looking to provide your customers with a standout digital experience or
-          you're in need of behind-the-scenes systems that make your business run smoothly, I've got
-          the experience to deliver. Let's talk about how I can help bring your vision to life.
-        </p>
-        <div className="flex justify-center py-[48px]">
-          <Image className="rounded-full " alt="Me!" src={MeImage} height={300} width={300} />
-        </div>
-        <div className="flex">
-          <div className="w-[45%] h-6 bg-gray-100"></div>
-          <h2 className="text-2xl w-[10%] text-base-100 text-center font-semibold">Services</h2>
-          <div className="w-[45%] h-6 bg-gray-100"></div>
-        </div>
-        <p className="mx-[144px] mt-[24px]">
-          You've got the vision; we've got the expertise to bring it to life. Whether you're
-          starting from scratch or need to optimize your existing platform, we offer comprehensive
-          solutions that cater specifically to SaaS businesses.
-        </p>
-        {/* className="flex px-[144px] py-[64px] gap-x-8" */}
-        <div className="grid grid-cols-3 gap-x-16 px-[144px] pt-[48px] pb-[24px]">
-          <div className="text-center">
-            <MdEngineering className="h-[64px] w-[64px] mx-auto my-[12px]" />
-            <div className="font-medium mb-[12px]">End-to-End Development</div>
-            <p className="text-sm">
-              Why piece together multiple specialists when you can get it all done in one place? We
-              handle everything from initial sketches to the launch of your SaaS product. We even
-              ensure it runs smoothly after the big day.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <MdDesignServices className="h-[64px] w-[64px] mx-auto my-[12px]" />
-            <div className="font-medium mb-[12px]">User-Friendly Interfaces</div>
-            <p className="text-sm">
-              A great idea deserves a sleek and intuitive design. With your customer in mind, we
-              create engaging user experiences that not only look good but are easy to navigate.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <MdDataThresholding className="h-[64px] w-[64px] mx-auto my-[12px]" />
-            <div className="font-medium mb-[12px]">Data Optimization</div>
-            <p className="text-sm">
-              We implement smart data solutions that make your service faster and more reliable.
-              Understand your business better through key performance indicators and analytics that
-              we integrate seamlessly into your platform.
-            </p>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-x-16 px-[144px] py-[24px]">
-          <div className="text-center">
-            <MdOutlineIntegrationInstructions className="h-[64px] w-[64px] mx-auto my-[12px]" />
-            <div className="font-medium mb-[12px]">Seamless Third-Party Integrations</div>
-            <p className="text-sm">
-              Need to link up with other software or platforms? We've got you covered. Our expertise
-              allows for smooth integrations that extend your service's capabilities.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <MdPrivateConnectivity className="h-[64px] w-[64px] mx-auto my-[12px]" />
-            <div className="font-medium mb-[12px]">Secure & Scalable</div>
-            <p className="text-sm">
-              As your business grows, your platform should too. We build with scalability in mind,
-              ensuring that you can easily add features or users as needed. Rest easy knowing your
-              data and your users' data are well-protected.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <MdComputer className="h-[64px] w-[64px] mx-auto my-[12px]" />
-            <div className="font-medium mb-[12px]">24/7 Support & Maintenance</div>
-            <p className="text-sm">
-              We don't just disappear after launch. Our ongoing support and maintenance services
-              ensure your SaaS business continues to run smoothly, allowing you to focus on what you
-              do best—running your business.
-            </p>
-          </div>
-        </div>
+      <HeroSection />
+      <div className="bg-white px-[144px]">
+        <AboutSection />
+        <ServicesSection />
+        <ProcessSection />
       </div>
     </Layout>
   );
