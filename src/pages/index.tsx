@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import Link from "next/link";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import { Routes, BlitzPage } from "@blitzjs/next";
@@ -57,46 +57,71 @@ const UserInfo = () => {
 
 const SectionHeader = (props: { sectionName: string }) => (
   <div className="flex py-[48px]">
-    <div className="w-[40%] md:w-[42.5%] h-6 bg-gray-100"></div>
-    <h2 className="text-xl md:text-2xl w-[20%] md:w-[15%] text-base-100 text-center font-semibold">
+    <div className="w-[35%] sm:w-[40%] md:w-[42.5%] h-6 bg-slate-100"></div>
+    <h2 className="text-xl md:text-2xl w-[30%] sm:w-[20%] md:w-[15%] text-base-100 text-center font-semibold">
       {props.sectionName}
     </h2>
-    <div className="w-[40%] md:w-[42.5%] h-6 bg-gray-100"></div>
+    <div className="w-[35%] sm:w-[40%] md:w-[42.5%] h-6 bg-slate-100"></div>
   </div>
 );
 
+const SectionTextContainer = ({ children }) => <div className="mx-[48px]">{children}</div>;
+
 const HeroSection = () => (
   <section className="h-screen">
-    <h1 className="text-5xl pl-[48px] pt-[300px] text-white">Lets build an experience together</h1>
-    <p className="pl-[48px] pt-[24px] text-white">
-      My name is Elvis, I'm a full stack web developer and I specialize in making SaaS products for
-      startups
-    </p>
+    <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute text-white hidden xl:block">
+      AD
+    </div>
 
-    <button className="btn btn-outline btn-accent normal-case mt-[24px]  ml-[48px] w-[140px]">
-      Free Consult
-    </button>
-    <button className="btn btn-outline btn-info normal-case ml-[48px] w-[140px]">Services</button>
+    <div className="relative overflow-x-clip hidden xl:block">
+      <div id="home-nav-link-1">Home</div>
+      <div id="home-nav-link-2">About</div>
+      <div id="home-nav-link-3">Services</div>
+      <div id="home-nav-link-4">Process</div>
+      <div id="home-nav-link-5">Contact</div>
+      <div id="home-nav-link-6">Blog</div>
+      <div id="home-nav-link-7"></div>
+      <div id="home-nav-link-8"></div>
+      <div id="home-nav-link-9"></div>
+    </div>
+
+    <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
+      <h1 className="text-5xl">Lets build an experience together</h1>
+      <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
+        My name is Elvis, and I'm a full-stack web developer specializing in creating SaaS products
+        for startups. I've honed my skills as a Founding Software Engineer at Onward, backed by
+        Techstars, and Kraftful, supported by Y Combinator.
+      </p>
+
+      <div className="flex justify-center mt-[48px]">
+        <button className="btn btn-outline btn-accent normal-case w-[140px] mr-[24px]">
+          Free Consult
+        </button>
+        <button className="btn btn-outline btn-info normal-case w-[140px]">Services</button>
+      </div>
+    </div>
   </section>
 );
 
 const AboutSection = () => (
   <section>
     <SectionHeader sectionName="About" />
-    <p>
-      Hi, I'm Elvis, and I specialize in turning your big ideas into reality through custom
-      software. With a strong foundation in science and engineering, I've been at the ground floor
-      of start-ups and have helped grow companies by providing them with the tools they need to
-      succeed. My passion lies in understanding your business goals and transforming them into
-      easy-to-use software solutions that not only work seamlessly but also drive revenue and
-      efficiency.
-    </p>
-    <p className="mt-[24px]">
-      I have a diverse set of skills that can help your business grow and stay competitive. Whether
-      you're looking to provide your customers with a standout digital experience or you're in need
-      of behind-the-scenes systems that make your business run smoothly, I've got the experience to
-      deliver. Let's talk about how I can help bring your vision to life.
-    </p>
+    <SectionTextContainer>
+      <p>
+        Hi, I'm Elvis, and I specialize in turning your big ideas into reality through custom
+        software. With a strong foundation in science and engineering, I've been at the ground floor
+        of start-ups and have helped grow companies by providing them with the tools they need to
+        succeed. My passion lies in understanding your business goals and transforming them into
+        easy-to-use software solutions that not only work seamlessly but also drive revenue and
+        efficiency.
+      </p>
+      <p className="mt-[24px]">
+        I have a diverse set of skills that can help your business grow and stay competitive.
+        Whether you're looking to provide your customers with a standout digital experience or
+        you're in need of behind-the-scenes systems that make your business run smoothly, I've got
+        the experience to deliver. Let's talk about how I can help bring your vision to life.
+      </p>
+    </SectionTextContainer>
     <div className="flex justify-center pt-[48px]">
       <Image className="rounded-full " alt="Me!" src={MeImage} height={300} width={300} />
     </div>
@@ -106,12 +131,13 @@ const AboutSection = () => (
 const ServicesSection = () => (
   <section>
     <SectionHeader sectionName="Services" />
-
-    <p>
-      You've got the vision; we've got the expertise to bring it to life. Whether you're starting
-      from scratch or need to optimize your existing platform, we offer comprehensive solutions that
-      cater specifically to SaaS businesses.
-    </p>
+    <SectionTextContainer>
+      <p>
+        You've got the vision; we've got the expertise to bring it to life. Whether you're starting
+        from scratch or need to optimize your existing platform, we offer comprehensive solutions
+        that cater specifically to SaaS businesses.
+      </p>
+    </SectionTextContainer>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 px-[48px] pt-[48px]">
       <div className="text-center">
         <MdEngineering className="h-[64px] w-[64px] mx-auto my-[12px]" />
@@ -176,6 +202,7 @@ const ServicesSection = () => (
 
 const ProcessSection = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const modalRef = useRef<HTMLDialogElement>(null);
   const processSteps = [
     {
       name: "Discovery & Planning",
@@ -307,10 +334,17 @@ const ProcessSection = () => {
   };
 
   return (
-    <section className="pb-[144px]">
+    <section className="">
       <SectionHeader sectionName="Process" />
+      <SectionTextContainer>
+        <p>
+          Transforming a concept into a successful product is no small feat—it's a journey. And like
+          any journey, it's easier with a map. That's why we've broken down our approach into key
+          phases designed to tackle your unique challenges.
+        </p>
+      </SectionTextContainer>
 
-      <div className="grid grid-cols-2 mx-[0px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 pt-[48px]">
         <div className="flex flex-col justify-center items-center">
           {processSteps.map((processStep, i) => (
             <div className="flex flex-row items-center relative">
@@ -324,7 +358,14 @@ const ProcessSection = () => {
                 ${i === currentStepIndex ? "text-primary" : "text-white"} 
                 ${i === currentStepIndex ? "border-2" : "border-0"}
               `}
-                onClick={() => setCurrentStepIndex(i)}
+                onClick={() => {
+                  // 640px is the cutoff for tailwind sm breakpoint
+                  if (window.innerWidth < 640) {
+                    modalRef.current?.showModal();
+                  } else {
+                    setCurrentStepIndex(i);
+                  }
+                }}
               >
                 {i + 1}
               </div>
@@ -336,9 +377,98 @@ const ProcessSection = () => {
           ))}
         </div>
 
-        <div className="bg-base-100 rounded-lg text-white text-base font-normal">
+        <div className="bg-base-100 rounded-lg text-white text-base font-normal hidden sm:block">
           {processSteps[currentStepIndex]?.content}
         </div>
+      </div>
+
+      <dialog ref={modalRef} className="modal fixed sm:hidden">
+        <div className="modal-box">
+          <div className="text-white text-sm font-normal">
+            {processSteps[currentStepIndex]?.content}
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn normal-case">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    </section>
+  );
+};
+
+const ContactSection = () => {
+  return (
+    <section>
+      <SectionHeader sectionName="Contact" />
+      <SectionTextContainer>
+        <p className="pb-[48px]">
+          Looking to launch a groundbreaking SaaS solution, or eager to elevate an existing product
+          to new heights? Reach out through the form below, and you'll receive a personalized
+          response from me within one to two business days.
+        </p>
+      </SectionTextContainer>
+
+      <div className="flex flex-col items-center">
+        <div className="form-control w-[80%] sm:w-[50%]">
+          <label className="label">
+            <span className="label-text text-base-100">What is your name?*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Name"
+            className="input input-primary bg-slate-100 input-bordered w-full text-sm"
+          />
+        </div>
+        <div className="form-control w-[80%] sm:w-[50%]">
+          <label className="label">
+            <span className="label-text text-base-100">What is your email?*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Email"
+            className="input input-primary bg-slate-100 input-bordered w-full text-sm"
+          />
+        </div>
+        <div className="form-control w-[80%] sm:w-[50%]">
+          <label className="label">
+            <span className="label-text text-base-100">How can I help you?*</span>
+          </label>
+          <textarea
+            className="textarea textarea-primary textarea-bordered h-24 bg-slate-100 text-sm"
+            placeholder="I want to build..."
+          ></textarea>
+        </div>
+        <div className="w-[80%] sm:w-[50%]">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-base-100">Project Type*</span>
+            </label>
+            <div>
+              <label className="label cursor-pointer justify-start">
+                <input
+                  type="radio"
+                  name="radio-10"
+                  className="radio bg-slate-200 checked:bg-accent mr-[12px]"
+                  checked
+                />
+                <span className="label-text text-base-100">Building a new project</span>
+              </label>
+            </div>
+            <div>
+              <label className="label cursor-pointer justify-start">
+                <input
+                  type="radio"
+                  name="radio-10"
+                  className="radio bg-slate-200 checked:bg-accent mr-[12px]"
+                />
+                <span className="label-text text-base-100">Improving an existing project</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <button className="btn normal-case w-[144px] my-[24px]">Submit</button>{" "}
       </div>
     </section>
   );
@@ -355,12 +485,12 @@ const HomeContent = () => {
           <UserInfo />
         </Suspense>
       </div> */}
-
       <HeroSection />
-      <div className="bg-white px-[144px]">
+      <div className="bg-white px-0 md:px-[144px]">
         <AboutSection />
         <ServicesSection />
         <ProcessSection />
+        <ContactSection />
       </div>
     </Layout>
   );
