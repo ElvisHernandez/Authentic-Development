@@ -399,6 +399,7 @@ const ProcessSection = () => {
 };
 
 const ContactSection = () => {
+  const [newProject, setNewProject] = useState(true);
   return (
     <section>
       <SectionHeader sectionName="Contact" />
@@ -451,7 +452,8 @@ const ContactSection = () => {
                   type="radio"
                   name="radio-10"
                   className="radio bg-slate-200 checked:bg-accent mr-[12px]"
-                  checked
+                  checked={newProject}
+                  onChange={(e) => setNewProject(e.target.checked)}
                 />
                 <span className="label-text text-base-100">Building a new project</span>
               </label>
@@ -462,6 +464,8 @@ const ContactSection = () => {
                   type="radio"
                   name="radio-10"
                   className="radio bg-slate-200 checked:bg-accent mr-[12px]"
+                  checked={!newProject}
+                  onChange={(e) => setNewProject(!e.target.checked)}
                 />
                 <span className="label-text text-base-100">Improving an existing project</span>
               </label>

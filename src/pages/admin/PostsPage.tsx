@@ -169,7 +169,7 @@ function PostEditor(props: PostEditorProps) {
         />
 
         <button
-          className="btn btn-accent my-[16px] float-right"
+          className="btn btn-accent mt-[48px] mb-[24px] float-right"
           onClick={(e) => handleSubmit(e, post)}
         >
           {mode === Mode.create ? "Create Post" : "Update Post"}
