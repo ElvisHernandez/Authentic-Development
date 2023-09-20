@@ -6,9 +6,13 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    handleNavDisplay();
-    window.addEventListener("scroll", handleNavDisplay);
-    window.addEventListener("resize", handleNavDisplay);
+    if (window.location.pathname === "/") {
+      handleNavDisplay();
+      window.addEventListener("scroll", handleNavDisplay);
+      window.addEventListener("resize", handleNavDisplay);
+    } else {
+      setVisible(true);
+    }
 
     return () => {
       window.removeEventListener("scroll", handleNavDisplay);

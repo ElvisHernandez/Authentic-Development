@@ -347,7 +347,7 @@ const ProcessSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 pt-[48px]">
         <div className="flex flex-col justify-center items-center">
           {processSteps.map((processStep, i) => (
-            <div className="flex flex-row items-center relative">
+            <div key={processStep.name} className="flex flex-row items-center relative">
               <div className="mx-[12px] h-[64px] w-[168px] text-center flex justify-center items-center font-medium">
                 {processStep.name}
               </div>
