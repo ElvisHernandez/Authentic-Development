@@ -6,6 +6,7 @@ import getThumbnailsQuery from "src/images/queries/getThumbnails";
 
 export enum Page {
   posts = "Posts",
+  tags = "Tags",
   images = "Images",
   settings = "Settings",
 }
@@ -89,6 +90,13 @@ function AdminLayout(props: Props) {
               {" "}
               <MdArticle className="inline-block mb-[3px] mr-[4px]" />
               Posts
+            </a>
+          </li>
+          <li onClick={() => navigateTo("tags")}>
+            <a>
+              {" "}
+              <MdArticle className="inline-block mb-[3px] mr-[4px]" />
+              Tags
             </a>
           </li>
           <li onClick={() => navigateTo("images")}>

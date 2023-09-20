@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import Layout from "./Layout";
 import { useSearchParams } from "next/navigation";
 import PostsPage from "./PostsPage";
+import TagsPage from "./TagsPage";
 import ImagesPage from "./ImagesPage";
 import isAdminUser from "src/utils/isAdminUser";
 
@@ -22,6 +23,8 @@ export function AdminDashboard() {
 
   if (!page || page === "posts") {
     return <PostsPage />;
+  } else if (page === "tags") {
+    return <TagsPage />;
   } else if (page === "images") {
     return <ImagesPage />;
   }
