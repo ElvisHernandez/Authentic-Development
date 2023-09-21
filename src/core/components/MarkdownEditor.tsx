@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import { MdPreview, MdOutlineFullscreen, MdOutlineFullscreenExit, MdImage } from "react-icons/md";
 import { ThumbnailGrid } from "src/pages/admin/ImagesPage";
 
-function ImageModal(props: {
+export function ImageModal(props: {
   modalRef: React.RefObject<HTMLDialogElement>;
   imageInserter: (imageUrl: string) => Promise<void>;
 }) {
@@ -71,7 +71,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
       <div className="relative h-[95%]">
         <textarea
           placeholder="Content"
-          className={`textarea textarea-bordered textarea-lg 
+          className={`textarea textarea-bordered textarea-lg text-sm
           ${showPreview ? "w-1/2" : "w-full"} 
           ${fullScreen ? "h-screen" : "h-full"}
           rounded-none p-4 border-0 focus:outline-none`}

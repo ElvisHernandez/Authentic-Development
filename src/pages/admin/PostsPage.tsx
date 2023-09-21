@@ -1,14 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Post, Tag } from "@prisma/client";
 
 import { Context } from "./Layout";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import getPosts from "src/posts/queries/getPosts";
-import MarkdownEditor from "src/core/components/MarkdownEditor";
+import MarkdownEditor, { ImageModal } from "src/core/components/MarkdownEditor";
 import createPostMutation from "src/posts/mutations/createPost";
 import updatePostResolver from "src/posts/mutations/updatePost";
 import deletePostResolver from "src/posts/mutations/deletePost";
 import getTagsResolver from "src/tags/queries/getTags";
+import Image from "next/image";
 
 enum Mode {
   read = "Read",
@@ -16,7 +17,11 @@ enum Mode {
   update = "Update",
 }
 
-export type PostWithTagIds = Partial<Post> & { selectedTagIds: number[] };
+type PartialPost = Pick<Post, "title" | "content" | "thumbnailUrl" | "description">;
+
+type PostWithTagIds = PartialPost & {
+  selectedTagIds: number[];
+};
 
 export default function PostsPage() {
   const context = useContext(Context);
@@ -26,13 +31,17 @@ export default function PostsPage() {
   const [updatePostMutation] = useMutation(updatePostResolver);
   const [deletePostMutation] = useMutation(deletePostResolver);
 
-  const [newPost, setNewPost] = useState<Partial<Post>>({
+  const [newPost, setNewPost] = useState({
     title: "",
     content: "",
+    description: "",
+    thumbnailUrl: "",
   });
-  const [selectedPost, setSelectedPost] = useState<Partial<Post>>({
+  const [selectedPost, setSelectedPost] = useState({
     title: "",
     content: "",
+    description: "",
+    thumbnailUrl: "",
   });
 
   const [mode, setMode] = useState<Mode>(Mode.read);
@@ -50,7 +59,7 @@ export default function PostsPage() {
     setMode(Mode.read);
   };
 
-  const updatePost = async (e, post: PostWithTagIds) => {
+  const updatePost = async (e, post: PostWithTagIds & { id: number }) => {
     e.preventDefault();
 
     await updatePostMutation(post);
@@ -77,7 +86,18 @@ export default function PostsPage() {
           )}
 
           {mode === Mode.read && (
-            <button className="btn btn-info" onClick={() => setMode(Mode.create)}>
+            <button
+              className="btn btn-info"
+              onClick={() => {
+                setNewPost({
+                  title: "",
+                  content: "",
+                  description: "",
+                  thumbnailUrl: "",
+                });
+                setMode(Mode.create);
+              }}
+            >
               Create new post
             </button>
           )}
@@ -147,7 +167,7 @@ export default function PostsPage() {
 
 interface PostEditorProps {
   mode: Mode;
-  post: Partial<Post> & { tags?: Array<{ id: number }> };
+  post: PartialPost & { tags?: Array<{ id: number }> };
   setPost: (post: Partial<Post>) => void;
   handleSubmit: (e: React.MouseEvent<HTMLButtonElement>, post: PostWithTagIds) => Promise<void>;
 }
@@ -157,6 +177,8 @@ function PostEditor(props: PostEditorProps) {
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>(
     post?.tags?.map((tag) => tag.id) ?? []
   );
+  const [thumbnailUrl, setThumbnailUrl] = useState(post.thumbnailUrl || "");
+  const imageModalRef = useRef<HTMLDialogElement>(null);
   const [tags] = useQuery(getTagsResolver, {});
 
   const onSelectedTagsChange = (e) => {
@@ -169,32 +191,69 @@ function PostEditor(props: PostEditorProps) {
     }
   };
 
+  const imageInserter = async (imageSrc) => {
+    setThumbnailUrl(imageSrc);
+    imageModalRef?.current?.close();
+  };
+
   return (
     <>
-      <form>
-        <div className="max-w-xs">
-          {tags.map((tag) => (
-            <div key={tag.id} className="form-control">
-              <label className="label cursor-pointer">
-                <span className="label-text">{tag.name}</span>
-                <input
-                  type="checkbox"
-                  value={tag.id}
-                  checked={selectedTagIds.includes(tag.id)}
-                  className="checkbox checkbox-accent"
-                  onChange={onSelectedTagsChange}
-                />
-              </label>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <div className="flex justify-between">
+          <div className="w-1/2">
+            <div className="max-w-xs">
+              {tags.map((tag) => (
+                <div key={tag.id} className="form-control">
+                  <label className="label cursor-pointer">
+                    <span className="label-text">{tag.name}</span>
+                    <input
+                      type="checkbox"
+                      value={tag.id}
+                      checked={selectedTagIds.includes(tag.id)}
+                      className="checkbox checkbox-accent"
+                      onChange={onSelectedTagsChange}
+                    />
+                  </label>
+                </div>
+              ))}
             </div>
-          ))}
+            <input
+              type="text"
+              placeholder="Title"
+              value={post.title}
+              onChange={(e) => setPost({ title: e.target.value })}
+              className="mb-[16px] input input-bordered w-full max-w-xs text-sm"
+            />
+          </div>
+          <div className="flex items-center">
+            {!!thumbnailUrl && (
+              <div className="mr-[24px]">
+                <Image
+                  className="rounded"
+                  height={100}
+                  width={100}
+                  src={thumbnailUrl}
+                  alt="Blog thumbnail"
+                />
+              </div>
+            )}
+            <button className="btn btn-primary" onClick={() => imageModalRef.current?.showModal()}>
+              Upload Thumbnail
+            </button>
+          </div>
         </div>
-        <input
-          type="text"
-          placeholder="Title"
-          value={post.title}
-          onChange={(e) => setPost({ title: e.target.value })}
-          className="mb-[16px] input input-bordered w-full max-w-xs"
-        />
+
+        <div className="form-control mb-[24px]">
+          <label className="label">
+            <span className="label-text">Description</span>
+          </label>
+          <textarea
+            className="textarea textarea-bordered h-24"
+            placeholder="Description"
+            value={post.description}
+            onChange={(e) => setPost({ description: e.target.value })}
+          ></textarea>
+        </div>
 
         <MarkdownEditor
           value={post.content}
@@ -203,11 +262,13 @@ function PostEditor(props: PostEditorProps) {
 
         <button
           className="btn btn-accent mt-[48px] mb-[24px] float-right"
-          onClick={(e) => handleSubmit(e, { ...post, selectedTagIds })}
+          onClick={(e) => handleSubmit(e, { ...post, selectedTagIds, thumbnailUrl })}
         >
           {mode === Mode.create ? "Create Post" : "Update Post"}
         </button>
       </form>
+
+      <ImageModal modalRef={imageModalRef} imageInserter={imageInserter} />
     </>
   );
 }

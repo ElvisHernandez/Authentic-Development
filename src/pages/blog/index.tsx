@@ -1,10 +1,25 @@
-import { BlitzPage } from "@blitzjs/next";
+import { BlitzPage, Routes } from "@blitzjs/next";
 import { useQuery } from "@blitzjs/rpc";
+import { Post } from "@prisma/client";
+import { useRouter } from "next/router";
+import { Suspense } from "react";
 import Layout from "src/core/layouts/Layout";
 import getPostsResolver from "src/posts/queries/getPosts";
 
 const BlogPage: BlitzPage = () => {
+  return (
+    <Suspense fallback={<p>loading...</p>}>
+      <BlogPageContent />
+    </Suspense>
+  );
+};
+
+const BlogPageContent = () => {
+  const router = useRouter();
   const [posts] = useQuery(getPostsResolver, {});
+
+  const getPostImageSrc = (post: Pick<Post, "thumbnailUrl">) =>
+    post.thumbnailUrl.replace("small", "medium");
 
   return (
     <div className=" py-[64px] px-[48px] min-h-screen bg-white">
@@ -22,15 +37,22 @@ const BlogPage: BlitzPage = () => {
 
         <section className="flex flex-col gap-4 items-center">
           {posts.map((post) => (
-            <div className="card h-[300px] w-[500px] rounded bg-slate-200 lg:card-side shadow-xl">
+            <div className="card h-[500px] w-[fit-content] rounded bg-slate-200 shadow-xl">
               <figure>
-                <img src="/images/stock/photo-1494232410401-ad00d5433cfa.jpg" alt="Album" />
+                <img src={getPostImageSrc(post)} alt="Album" />
               </figure>
-              <div className="card-body">
+              <div className="card-body max-w-[600px]">
                 <h3 className="card-title">{post.title}</h3>
-                <p>{post.description}</p>
+                <p className="text-xs">{post.description}</p>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary normal-case">Read</button>
+                  <button
+                    className="btn btn-primary normal-case"
+                    onClick={() =>
+                      router.push(Routes.SpecificBlogPage({ id: post.id, slug: post.slug }))
+                    }
+                  >
+                    Read
+                  </button>
                 </div>
               </div>
             </div>
