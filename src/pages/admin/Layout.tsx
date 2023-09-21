@@ -1,8 +1,10 @@
 import React, { Suspense, createContext, useContext, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { MdArticle, MdSettings, MdPhotoLibrary } from "react-icons/md";
-import { useQuery } from "@blitzjs/rpc";
+import { useMutation, useQuery } from "@blitzjs/rpc";
 import getThumbnailsQuery from "src/images/queries/getThumbnails";
+import logoutResolver from "src/auth/mutations/logout";
+import { Routes } from "@blitzjs/next";
 
 export enum Page {
   posts = "Posts",
@@ -67,6 +69,8 @@ function AdminLayout(props: Props) {
   const { setPage } = useContext(Context);
   const router = useRouter();
 
+  const [logoutMutation] = useMutation(logoutResolver);
+
   const navigateTo = (page: keyof typeof Page) => {
     setPage(Page[page]);
     router.push(`/admin?page=${page}`);
@@ -80,9 +84,9 @@ function AdminLayout(props: Props) {
 
         {props.children}
       </div>
-      <div className="drawer-side text-white">
+      <div className="drawer-side text-white h-screen bg-base-200 relative">
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 h-full bg-base-200 text-center">
+        <ul className="menu p-4 w-80 text-center">
           {/* Sidebar content here */}
           <h1 className="py-[48px] text-[26px] font-semibold">Admin</h1>
           <li onClick={() => navigateTo("posts")}>
@@ -114,6 +118,16 @@ function AdminLayout(props: Props) {
             </a>
           </li>
         </ul>
+
+        <button
+          className="btn btn-primary absolute left-[35%] bottom-[24px]"
+          onClick={async () => {
+            await logoutMutation();
+            router.push(Routes.Home());
+          }}
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

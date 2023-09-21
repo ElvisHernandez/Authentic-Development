@@ -7,6 +7,7 @@ import PostsPage from "./PostsPage";
 import TagsPage from "./TagsPage";
 import ImagesPage from "./ImagesPage";
 import isAdminUser from "src/utils/isAdminUser";
+import { Routes } from "@blitzjs/next";
 
 const AdminPage: BlitzPage = () => {
   return (
@@ -45,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const redirect = {
     props: {},
     redirect: {
-      destination: "/",
+      destination: "/auth/login",
     },
   };
 
