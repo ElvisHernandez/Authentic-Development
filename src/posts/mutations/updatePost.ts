@@ -9,8 +9,15 @@ export default resolver.pipe(
   resolver.zod(PostWithIdSchema),
   async (post) => {
     const updatedPost = await db.post.update({
-      data: { title: post.title, content: post.content, description: "" },
       where: { id: post.id },
+      data: {
+        title: post.title,
+        content: post.content,
+        description: "",
+        tags: {
+          set: post.selectedTagIds.map((tagId) => ({ id: tagId })),
+        },
+      },
     });
 
     return {

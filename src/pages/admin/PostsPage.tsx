@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Post } from "@prisma/client";
+import { Post, Tag } from "@prisma/client";
 
 import { Context } from "./Layout";
 import { useMutation, useQuery } from "@blitzjs/rpc";
@@ -8,12 +8,15 @@ import MarkdownEditor from "src/core/components/MarkdownEditor";
 import createPostMutation from "src/posts/mutations/createPost";
 import updatePostResolver from "src/posts/mutations/updatePost";
 import deletePostResolver from "src/posts/mutations/deletePost";
+import getTagsResolver from "src/tags/queries/getTags";
 
 enum Mode {
   read = "Read",
   create = "Create",
   update = "Update",
 }
+
+export type PostWithTagIds = Partial<Post> & { selectedTagIds: number[] };
 
 export default function PostsPage() {
   const context = useContext(Context);
@@ -39,7 +42,7 @@ export default function PostsPage() {
     setSelectedPost(post);
   };
 
-  const createNewPost = async (e: React.MouseEvent<HTMLButtonElement>, post: Partial<Post>) => {
+  const createNewPost = async (e, post: PostWithTagIds) => {
     e.preventDefault();
 
     await createPost(post);
@@ -47,7 +50,7 @@ export default function PostsPage() {
     setMode(Mode.read);
   };
 
-  const updatePost = async (e: React.MouseEvent<HTMLButtonElement>, post: Partial<Post>) => {
+  const updatePost = async (e, post: PostWithTagIds) => {
     e.preventDefault();
 
     await updatePostMutation(post);
@@ -143,18 +146,48 @@ export default function PostsPage() {
 }
 
 interface PostEditorProps {
-  post: Partial<Post>;
-  setPost: (post: Partial<Post>) => void;
   mode: Mode;
-  handleSubmit: (e: React.MouseEvent<HTMLButtonElement>, post: Partial<Post>) => Promise<void>;
+  post: Partial<Post> & { tags?: Array<{ id: number }> };
+  setPost: (post: Partial<Post>) => void;
+  handleSubmit: (e: React.MouseEvent<HTMLButtonElement>, post: PostWithTagIds) => Promise<void>;
 }
 
 function PostEditor(props: PostEditorProps) {
   const { post, setPost, handleSubmit, mode } = props;
+  const [selectedTagIds, setSelectedTagIds] = useState<number[]>(
+    post?.tags?.map((tag) => tag.id) ?? []
+  );
+  const [tags] = useQuery(getTagsResolver, {});
+
+  const onSelectedTagsChange = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      setSelectedTagIds((prev) => [...prev, +value]);
+    } else {
+      setSelectedTagIds((prev) => prev.filter((tagId) => tagId !== +value));
+    }
+  };
 
   return (
     <>
       <form>
+        <div className="max-w-xs">
+          {tags.map((tag) => (
+            <div key={tag.id} className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">{tag.name}</span>
+                <input
+                  type="checkbox"
+                  value={tag.id}
+                  checked={selectedTagIds.includes(tag.id)}
+                  className="checkbox checkbox-accent"
+                  onChange={onSelectedTagsChange}
+                />
+              </label>
+            </div>
+          ))}
+        </div>
         <input
           type="text"
           placeholder="Title"
@@ -170,7 +203,7 @@ function PostEditor(props: PostEditorProps) {
 
         <button
           className="btn btn-accent mt-[48px] mb-[24px] float-right"
-          onClick={(e) => handleSubmit(e, post)}
+          onClick={(e) => handleSubmit(e, { ...post, selectedTagIds })}
         >
           {mode === Mode.create ? "Create Post" : "Update Post"}
         </button>
