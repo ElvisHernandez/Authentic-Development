@@ -3,10 +3,12 @@ import db from "db";
 import isAdminUserResolver from "src/utils/isAdminUserResolver";
 import { PostWithIdSchema } from "../types";
 
+const DeletePostSchema = PostWithIdSchema.omit({ selectedTagIds: true });
+
 export default resolver.pipe(
+  resolver.zod(DeletePostSchema),
   resolver.authorize(),
   isAdminUserResolver,
-  resolver.zod(PostWithIdSchema),
   async (post) => {
     const deletedPost = await db.post.delete({
       where: { id: post.id },
