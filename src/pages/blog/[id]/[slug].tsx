@@ -2,6 +2,7 @@ import { BlitzPage } from "@blitzjs/next";
 import { useQuery } from "@blitzjs/rpc";
 import { useRouter } from "next/router";
 import { Suspense } from "react";
+import { Markdown } from "src/core/components/MarkdownEditor";
 import Layout from "src/core/layouts/Layout";
 import getPost from "src/posts/queries/getPost";
 
@@ -36,6 +37,9 @@ const SpecificBlogPageContent: BlitzPage = () => {
           </p>
         </div>
       </div>
+      <section className="mx-[144px] my-[64px]">
+        <Markdown value={post?.content ?? ""} />
+      </section>
     </div>
   );
 };

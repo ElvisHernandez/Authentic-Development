@@ -35,6 +35,24 @@ export function ImageModal(props: {
     </dialog>
   );
 }
+
+export function Markdown(props: { value: string }) {
+  return (
+    <ReactMarkdown
+      children={props.value ?? ""}
+      remarkPlugins={[remarkGfm]}
+      components={{
+        h1: ({ node, ...props }) => (
+          <>
+            <h1 className="font-bold text-2xl" {...props}></h1>
+            <div className="divider my-0"></div>
+          </>
+        ),
+      }}
+    />
+  );
+}
+
 export type MarkdownEditorProps = {
   value: string | undefined;
   updateValue: (value: string) => void;
@@ -81,18 +99,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
 
         {showPreview && (
           <div className="absolute top-0 right-0 border-l-[1px] border-base-300 bg-base-100 h-full w-2/4 p-4">
-            <ReactMarkdown
-              children={props.value ?? ""}
-              remarkPlugins={[remarkGfm]}
-              components={{
-                h1: ({ node, ...props }) => (
-                  <>
-                    <h1 className="font-bold text-2xl" {...props}></h1>
-                    <div className="divider my-0"></div>
-                  </>
-                ),
-              }}
-            />
+            <Markdown value={props.value ?? ""} />
           </div>
         )}
       </div>
