@@ -81,6 +81,9 @@ i {
   right: 205px;
   width: 218px;
   height: 50px;
+}
+
+#home-nav-link-1.animate {
   animation: slideout-1-start 1000ms;
 }
 
@@ -113,6 +116,9 @@ i {
   right: -35px;
   width: 560px;
   height: 50px;
+}
+
+#home-nav-link-2.animate {
   animation: slideout-2-start 1000ms;
 }
 
@@ -145,6 +151,9 @@ i {
   right: -20px;
   width: 398px;
   height: 50px;
+}
+
+#home-nav-link-3.animate {
   animation: slideout-3-start 1000ms;
 }
 
@@ -177,6 +186,9 @@ i {
   right: -240px;
   width: 698px;
   height: 50px;
+}
+
+#home-nav-link-4.animate {
   animation: slideout-4-start 1000ms;
 }
 
@@ -209,6 +221,9 @@ i {
   right: -319px;
   width: 719px;
   height: 50px;
+}
+
+#home-nav-link-5.animate {
   animation: slideout-5-start 1000ms;
 }
 
@@ -241,6 +256,9 @@ i {
   right: -602px;
   width: 1148px;
   height: 50px;
+}
+
+#home-nav-link-6.animate {
   animation: slideout-6-start 1000ms;
 }
 
@@ -273,6 +291,9 @@ i {
   right: -540px;
   width: 883px;
   height: 50px;
+}
+
+#home-nav-link-7.animate {
   animation: slideout-7-start 1000ms;
 }
 
@@ -305,6 +326,9 @@ i {
   right: -731px;
   width: 1129px;
   height: 50px;
+}
+
+#home-nav-link-8.animate {
   animation: slideout-8-start 1000ms;
 }
 
@@ -337,6 +361,9 @@ i {
   right: -737px;
   width: 998px;
   height: 50px;
+}
+
+#home-nav-link-9.animate {
   animation: slideout-9-start 1000ms;
 }
 

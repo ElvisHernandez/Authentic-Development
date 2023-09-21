@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import { Routes, BlitzPage } from "@blitzjs/next";
@@ -67,41 +67,65 @@ const SectionHeader = (props: { sectionName: string }) => (
 
 const SectionTextContainer = ({ children }) => <div className="mx-[48px]">{children}</div>;
 
-const HeroSection = () => (
-  <section className="h-screen">
-    <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute text-white hidden xl:block">
-      AD
-    </div>
+const HeroSection = () => {
+  const [isFirstRender, setIsFirstRender] = useState(false);
 
-    <div className="relative overflow-x-clip hidden xl:block">
-      <div id="home-nav-link-1">Home</div>
-      <div id="home-nav-link-2">About</div>
-      <div id="home-nav-link-3">Services</div>
-      <div id="home-nav-link-4">Process</div>
-      <div id="home-nav-link-5">Contact</div>
-      <div id="home-nav-link-6">Blog</div>
-      <div id="home-nav-link-7"></div>
-      <div id="home-nav-link-8"></div>
-      <div id="home-nav-link-9"></div>
-    </div>
+  useEffect(() => {
+    setIsFirstRender(true);
 
-    <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
-      <h1 className="text-5xl">Lets build an experience together</h1>
-      <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
-        My name is Elvis, and I'm a full-stack web developer specializing in creating SaaS products
-        for startups. I've honed my skills as a Founding Software Engineer at Onward, backed by
-        Techstars, and Kraftful, supported by Y Combinator.
-      </p>
+    const timer = setTimeout(() => setIsFirstRender(false), 1000);
 
-      <div className="flex justify-center mt-[48px]">
-        <button className="btn btn-outline btn-accent normal-case w-[140px] mr-[24px]">
-          Free Consult
-        </button>
-        <button className="btn btn-outline btn-info normal-case w-[140px]">Services</button>
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <section className="h-screen">
+      <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute text-white hidden xl:block">
+        AD
       </div>
-    </div>
-  </section>
-);
+
+      <div className="relative overflow-x-clip hidden xl:block">
+        <div id="home-nav-link-1" className={isFirstRender ? "animate" : ""}>
+          Home
+        </div>
+        <div id="home-nav-link-2" className={isFirstRender ? "animate" : ""}>
+          About
+        </div>
+        <div id="home-nav-link-3" className={isFirstRender ? "animate" : ""}>
+          Services
+        </div>
+        <div id="home-nav-link-4" className={isFirstRender ? "animate" : ""}>
+          Process
+        </div>
+        <div id="home-nav-link-5" className={isFirstRender ? "animate" : ""}>
+          Contact
+        </div>
+        <div id="home-nav-link-6" className={isFirstRender ? "animate" : ""}>
+          Blog
+        </div>
+        <div id="home-nav-link-7" className={isFirstRender ? "animate" : ""}></div>
+        <div id="home-nav-link-8" className={isFirstRender ? "animate" : ""}></div>
+        <div id="home-nav-link-9" className={isFirstRender ? "animate" : ""}></div>
+      </div>
+
+      <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
+        <h1 className="text-5xl">Lets build an experience together</h1>
+        <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
+          My name is Elvis, and I'm a full-stack web developer specializing in creating SaaS
+          products for startups. I've honed my skills as a Founding Software Engineer at Onward,
+          backed by Techstars, and Kraftful, supported by Y Combinator.
+        </p>
+
+        <div className="flex justify-center mt-[48px]">
+          <button className="btn btn-outline btn-accent normal-case w-[140px] mr-[24px]">
+            Free Consult
+          </button>
+          <button className="btn btn-outline btn-info normal-case w-[140px]">Services</button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const AboutSection = () => (
   <section>
