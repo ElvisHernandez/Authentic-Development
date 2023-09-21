@@ -69,7 +69,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
   };
 
   return (
-    <div className={fullScreen ? "w-screen h-screen fixed top-0 left-0 z-50" : "h-[300px]"}>
+    <div className={fullScreen ? "w-screen h-screen fixed top-0 left-0 z-50" : ""}>
       <ImageModal modalRef={modalRef} imageInserter={embedImage} />
 
       <div className="flex justify-end items-center bg-base-100 p-4 h-[5%] border-b-[1px] border-base-300">
@@ -91,14 +91,19 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
           placeholder="Content"
           className={`textarea textarea-bordered textarea-lg text-sm
           ${showPreview ? "w-1/2" : "w-full"} 
-          ${fullScreen ? "h-screen" : "h-full"}
+          ${fullScreen ? "h-screen" : "h-[400px]"}
           rounded-none p-4 border-0 focus:outline-none`}
           onChange={(e) => props.updateValue(e.target.value)}
           value={props.value}
         ></textarea>
 
         {showPreview && (
-          <div className="absolute top-0 right-0 border-l-[1px] border-base-300 bg-base-100 h-full w-2/4 p-4">
+          <div
+            className={`
+            absolute top-0 right-0 border-l-[1px] border-base-300 
+            bg-base-100 w-2/4 p-4 overflow-y-scroll
+            ${fullScreen ? "h-screen" : "h-[400px]"}`}
+          >
             <Markdown value={props.value ?? ""} />
           </div>
         )}

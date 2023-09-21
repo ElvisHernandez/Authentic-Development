@@ -75,7 +75,7 @@ export default function PostsPage() {
     <div className="flex flex-col items-center">
       <h1 className="text-center py-[48px] text-[38px] font-semibold">{context.page}</h1>
 
-      <div className="p-[32px] w-4/5 h-fit min-h-[500px] bg-base-200 rounded">
+      <div className="p-[32px] mb-[64px] w-4/5 h-fit min-h-[500px] bg-base-200 rounded">
         <header className="flex justify-between mb-[32px]">
           <p>Posts: {posts.length}</p>
 
