@@ -10,7 +10,8 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "prepare": "husky install",
-    "db": "sqlite3 db/db.sqlite --column --header"
+    "db": "sqlite3 db/db.sqlite --column --header",
+    "ssh": "ssh -i ./private/ec2_private_key.pem ubuntu@$(terraform -chdir=$PWD/terraform output -no-color public_ip | tr -d '\"')"
   },
   "prisma": {
     "schema": "db/schema.prisma"

@@ -16,7 +16,7 @@ echo 'Running yarn install' && yarn;
 echo -e "\nNODE_ENV=production" >> .env.local;
 yarn build;
 echo "Starting yarn start in the background...";
-/home/ubuntu/.nvm/versions/node/v18.16.1/bin/npm install -g pm2;
+npm install --global pm2;
 pm2 start npm --name "blitz" -- run start;
 echo "Ran npm run start in the background...";
 
