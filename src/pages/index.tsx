@@ -1,7 +1,6 @@
 import { Suspense, useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Routes, BlitzPage } from "@blitzjs/next";
+import { useQuery } from "@blitzjs/rpc";
+import { BlitzPage, Routes } from "@blitzjs/next";
 import {
   MdEngineering,
   MdDesignServices,
@@ -11,49 +10,12 @@ import {
   MdPrivateConnectivity,
 } from "react-icons/md";
 
-import logout from "src/auth/mutations/logout";
 import Layout from "src/core/layouts/Layout";
-import { useCurrentUser } from "src/users/hooks/useCurrentUser";
-import styles from "src/styles/Home.module.css";
 import getPosts from "src/posts/queries/getPosts";
 import Image from "next/image";
 import MeImage from "../../public/me.jpeg";
-
-const UserInfo = () => {
-  const currentUser = useCurrentUser();
-  const [logoutMutation] = useMutation(logout);
-
-  if (currentUser) {
-    return (
-      <>
-        <button
-          className={styles.button}
-          onClick={async () => {
-            await logoutMutation();
-          }}
-        >
-          Logout
-        </button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Link href={Routes.SignupPage()} className={styles.button}>
-          <strong>Sign Up</strong>
-        </Link>
-        <Link href={Routes.LoginPage()} className={styles.loginButton}>
-          <strong>Login</strong>
-        </Link>
-      </>
-    );
-  }
-};
+import Link from "next/link";
+import { handleLinkClickSmoothScroll, smoothScroll } from "src/utils/smoothScroll";
 
 const SectionHeader = (props: { sectionName: string }) => (
   <div className="flex py-[48px]">
@@ -68,10 +30,14 @@ const SectionHeader = (props: { sectionName: string }) => (
 const SectionTextContainer = ({ children }) => <div className="mx-[48px]">{children}</div>;
 
 const HeroSection = () => {
-  const [isFirstRender, setIsFirstRender] = useState(false);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
-    setIsFirstRender(true);
+    const { hash } = window.location;
+
+    if (hash) {
+      smoothScroll(hash.slice(1));
+    }
 
     const timer = setTimeout(() => setIsFirstRender(false), 1000);
 
@@ -81,31 +47,68 @@ const HeroSection = () => {
   return (
     <section className="h-screen">
       <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute text-white hidden xl:block">
-        AD
+        <Link href="/">AD</Link>
       </div>
 
       <div className="relative overflow-x-clip hidden xl:block">
-        <div id="home-nav-link-1" className={isFirstRender ? "animate" : ""}>
+        <Link
+          href={Routes.Home()}
+          id="home-nav-link-1"
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        >
           Home
-        </div>
-        <div id="home-nav-link-2" className={isFirstRender ? "animate" : ""}>
+        </Link>
+        <Link
+          href="#about"
+          id="home-nav-link-2"
+          onClick={(e) => handleLinkClickSmoothScroll(e, "about")}
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        >
           About
-        </div>
-        <div id="home-nav-link-3" className={isFirstRender ? "animate" : ""}>
+        </Link>
+        <Link
+          href="#services"
+          id="home-nav-link-3"
+          onClick={(e) => handleLinkClickSmoothScroll(e, "services")}
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        >
           Services
-        </div>
-        <div id="home-nav-link-4" className={isFirstRender ? "animate" : ""}>
+        </Link>
+        <Link
+          href="#process"
+          id="home-nav-link-4"
+          onClick={(e) => handleLinkClickSmoothScroll(e, "process")}
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        >
           Process
-        </div>
-        <div id="home-nav-link-5" className={isFirstRender ? "animate" : ""}>
+        </Link>
+        <Link
+          href="#contact"
+          id="home-nav-link-5"
+          onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        >
           Contact
-        </div>
-        <div id="home-nav-link-6" className={isFirstRender ? "animate" : ""}>
+        </Link>
+        <Link
+          href={Routes.BlogPage()}
+          id="home-nav-link-6"
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        >
           Blog
-        </div>
-        <div id="home-nav-link-7" className={isFirstRender ? "animate" : ""}></div>
-        <div id="home-nav-link-8" className={isFirstRender ? "animate" : ""}></div>
-        <div id="home-nav-link-9" className={isFirstRender ? "animate" : ""}></div>
+        </Link>
+        <div
+          id="home-nav-link-7"
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        ></div>
+        <div
+          id="home-nav-link-8"
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        ></div>
+        <div
+          id="home-nav-link-9"
+          className={`cursor-pointer ${isFirstRender ? "animate" : ""}`}
+        ></div>
       </div>
 
       <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
@@ -128,7 +131,7 @@ const HeroSection = () => {
 };
 
 const AboutSection = () => (
-  <section>
+  <section id="about">
     <SectionHeader sectionName="About" />
     <SectionTextContainer>
       <p>
@@ -153,7 +156,7 @@ const AboutSection = () => (
 );
 
 const ServicesSection = () => (
-  <section>
+  <section id="services">
     <SectionHeader sectionName="Services" />
     <SectionTextContainer>
       <p>
@@ -358,7 +361,7 @@ const ProcessSection = () => {
   };
 
   return (
-    <section className="">
+    <section id="process">
       <SectionHeader sectionName="Process" />
       <SectionTextContainer>
         <p>
@@ -425,7 +428,7 @@ const ProcessSection = () => {
 const ContactSection = () => {
   const [newProject, setNewProject] = useState(true);
   return (
-    <section>
+    <section id="contact">
       <SectionHeader sectionName="Contact" />
       <SectionTextContainer>
         <p className="pb-[48px]">
@@ -508,11 +511,6 @@ const HomeContent = () => {
 
   return (
     <Layout title="Home">
-      {/* <div className={styles.buttonContainer}>
-        <Suspense fallback="Loading...">
-          <UserInfo />
-        </Suspense>
-      </div> */}
       <HeroSection />
       <div className="bg-white px-0 md:px-[144px]">
         <AboutSection />

@@ -1,6 +1,8 @@
 import Head from "next/head";
 import React, { FC, useEffect, useState } from "react";
-import { BlitzLayout } from "@blitzjs/next";
+import { BlitzLayout, Routes } from "@blitzjs/next";
+import Link from "next/link";
+import { handleLinkClickSmoothScroll } from "src/utils/smoothScroll";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -56,57 +58,87 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-base-100"
           >
             <li>
-              <a>Blog</a>
+              <Link href={Routes.BlogPage()}>Blog</Link>
             </li>
             <li>
-              <a>Home</a>
+              <Link href={Routes.Home()}>Home</Link>
               <ul className="p-2">
                 <li>
-                  <a>Services</a>
+                  <Link
+                    href={`/#services`}
+                    onClick={(e) => handleLinkClickSmoothScroll(e, "services")}
+                  >
+                    Services
+                  </Link>
                 </li>
                 <li>
-                  <a>Process</a>
+                  <Link href="/#process" onClick={(e) => handleLinkClickSmoothScroll(e, "process")}>
+                    Process
+                  </Link>
                 </li>
                 <li>
-                  <a>Contact</a>
+                  <Link href="/#contact" onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}>
+                    Contact
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <a>About</a>
+              <Link href="/#about" onClick={(e) => handleLinkClickSmoothScroll(e, "about")}>
+                About
+              </Link>
             </li>
           </ul>
         </div>
-        <a className="normal-case lg:pl-[40px] text-2xl sm:text-4xl font-yellowtail">AD</a>
+        <Link href="/" className="normal-case lg:pl-[40px] text-2xl sm:text-4xl font-yellowtail">
+          AD
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Blog</a>
+            <Link href={Routes.BlogPage()}>Blog</Link>
           </li>
           <li tabIndex={0}>
             <details>
               <summary>Home</summary>
               <ul className="p-2">
                 <li>
-                  <a>Services</a>
+                  <Link
+                    href={`/#services`}
+                    onClick={(e) => handleLinkClickSmoothScroll(e, "services")}
+                  >
+                    Services
+                  </Link>
                 </li>
                 <li>
-                  <a>Process</a>
+                  <Link href="/#process" onClick={(e) => handleLinkClickSmoothScroll(e, "process")}>
+                    Process
+                  </Link>{" "}
                 </li>
                 <li>
-                  <a>Contact</a>
+                  <Link href="/#contact" onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}>
+                    Contact
+                  </Link>
                 </li>
               </ul>
             </details>
           </li>
           <li>
-            <a>About</a>
+            <Link href="/#about" onClick={(e) => handleLinkClickSmoothScroll(e, "about")}>
+              About
+            </Link>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn btn-info normal-case">Free Consult</a>
+        <Link
+          href="/#contact"
+          className="btn btn-info normal-case"
+          onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}
+        >
+          Free Consult
+        </Link>
       </div>
     </div>
   );

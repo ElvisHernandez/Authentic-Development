@@ -6,6 +6,10 @@
   --screen-width: 90vmin;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   padding: 0;
