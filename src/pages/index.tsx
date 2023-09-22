@@ -114,9 +114,9 @@ const HeroSection = () => {
       <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
         <h1 className="text-5xl">Lets build an experience together</h1>
         <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
-          My name is Elvis, and I'm a full-stack web developer specializing in creating SaaS
-          products for startups. I've honed my skills as a Founding Software Engineer at Onward,
-          backed by Techstars, and Kraftful, supported by Y Combinator.
+          My name is Elvis, and I&apos;m a full-stack web developer specializing in creating SaaS
+          products for startups. I&apos;ve honed my skills as a Founding Software Engineer at
+          Onward, backed by Techstars, and Kraftful, supported by Y Combinator.
         </p>
 
         <div className="flex justify-center mt-[48px]">
@@ -135,18 +135,19 @@ const AboutSection = () => (
     <SectionHeader sectionName="About" />
     <SectionTextContainer>
       <p>
-        Hi, I'm Elvis, and I specialize in turning your big ideas into reality through custom
-        software. With a strong foundation in science and engineering, I've been at the ground floor
-        of start-ups and have helped grow companies by providing them with the tools they need to
-        succeed. My passion lies in understanding your business goals and transforming them into
+        Hi, I&apos;m Elvis, and I specialize in turning your big ideas into reality through custom
+        software. With a strong foundation in science and engineering, I&apos;ve been at the ground
+        floor of start-ups and have helped grow companies by providing them with the tools they need
+        to succeed. My passion lies in understanding your business goals and transforming them into
         easy-to-use software solutions that not only work seamlessly but also drive revenue and
         efficiency.
       </p>
       <p className="mt-[24px]">
         I have a diverse set of skills that can help your business grow and stay competitive.
-        Whether you're looking to provide your customers with a standout digital experience or
-        you're in need of behind-the-scenes systems that make your business run smoothly, I've got
-        the experience to deliver. Let's talk about how I can help bring your vision to life.
+        Whether you&apos;re looking to provide your customers with a standout digital experience or
+        you&apos;re in need of behind-the-scenes systems that make your business run smoothly,
+        I&apos;ve got the experience to deliver. Let&apos;s talk about how I can help bring your
+        vision to life.
       </p>
     </SectionTextContainer>
     <div className="flex justify-center pt-[48px]">
@@ -160,9 +161,9 @@ const ServicesSection = () => (
     <SectionHeader sectionName="Services" />
     <SectionTextContainer>
       <p>
-        You've got the vision; we've got the expertise to bring it to life. Whether you're starting
-        from scratch or need to optimize your existing platform, we offer comprehensive solutions
-        that cater specifically to SaaS businesses.
+        You&apos;ve got the vision; we&apos;ve got the expertise to bring it to life. Whether
+        you&apos;re starting from scratch or need to optimize your existing platform, we offer
+        comprehensive solutions that cater specifically to SaaS businesses.
       </p>
     </SectionTextContainer>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 px-[48px] pt-[48px]">
@@ -199,8 +200,8 @@ const ServicesSection = () => (
         <MdOutlineIntegrationInstructions className="h-[64px] w-[64px] mx-auto my-[12px]" />
         <div className="font-medium mb-[12px]">Seamless Third-Party Integrations</div>
         <p className="text-sm">
-          Need to link up with other software or platforms? We've got you covered. Our expertise
-          allows for smooth integrations that extend your service's capabilities.
+          Need to link up with other software or platforms? We&apos;ve got you covered. Our
+          expertise allows for smooth integrations that extend your service&apos;s capabilities.
         </p>
       </div>
 
@@ -210,7 +211,7 @@ const ServicesSection = () => (
         <p className="text-sm">
           As your business grows, your platform should too. We build with scalability in mind,
           ensuring that you can easily add features or users as needed. Rest easy knowing your data
-          and your users' data are well-protected.
+          and your users&apos; data are well-protected.
         </p>
       </div>
 
@@ -218,8 +219,8 @@ const ServicesSection = () => (
         <MdComputer className="h-[64px] w-[64px] mx-auto my-[12px]" />
         <div className="font-medium mb-[12px]">24/7 Support & Maintenance</div>
         <p className="text-sm">
-          We don't just disappear after launch. Our ongoing support and maintenance services ensure
-          your SaaS business continues to run smoothly, allowing you to focus on what you do
+          We don&apos;t just disappear after launch. Our ongoing support and maintenance services
+          ensure your SaaS business continues to run smoothly, allowing you to focus on what you do
           best—running your business.
         </p>
       </div>
@@ -237,8 +238,8 @@ const ProcessSection = () => {
         <ol className="p-8">
           <li>
             <span className="font-semibold text-primary">Initial Consultation</span>: Discuss the
-            client's vision, target audience, unique value proposition, and any existing resources
-            or requirements.
+            client&apos;s vision, target audience, unique value proposition, and any existing
+            resources or requirements.
           </li>
           <li className="py-8">
             <span className="font-semibold text-primary">Scope & Proposal</span>: Present a project
@@ -365,9 +366,9 @@ const ProcessSection = () => {
       <SectionHeader sectionName="Process" />
       <SectionTextContainer>
         <p>
-          Transforming a concept into a successful product is no small feat—it's a journey. And like
-          any journey, it's easier with a map. That's why we've broken down our approach into key
-          phases designed to tackle your unique challenges.
+          Transforming a concept into a successful product is no small feat—it&apos;s a journey. And
+          like any journey, it&apos;s easier with a map. That&apos;s why we&apos;ve broken down our
+          approach into key phases designed to tackle your unique challenges.
         </p>
       </SectionTextContainer>
 
@@ -433,7 +434,7 @@ const ContactSection = () => {
       <SectionTextContainer>
         <p className="pb-[48px]">
           Looking to launch a groundbreaking SaaS solution, or eager to elevate an existing product
-          to new heights? Reach out through the form below, and you'll receive a personalized
+          to new heights? Reach out through the form below, and you&apos;ll receive a personalized
           response from me within one to two business days.
         </p>
       </SectionTextContainer>

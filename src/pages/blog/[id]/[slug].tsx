@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Suspense } from "react";
 import { Markdown } from "src/core/components/MarkdownEditor";
 import Layout from "src/core/layouts/Layout";
+import Image from "next/image";
 import getPost from "src/posts/queries/getPost";
 
 const SpecificBlogPage: BlitzPage = () => {
@@ -26,7 +27,10 @@ const SpecificBlogPageContent: BlitzPage = () => {
       <div className="flex justify-center items-center my-[24px]">
         <div className="avatar mr-[12px]">
           <div className="w-12 rounded-full">
-            <img src="https://authentic-development-blog-images.s3.amazonaws.com/small-1694849400780-me.jpeg" />
+            <Image
+              alt="Author Elvis Hernandez"
+              src="https://authentic-development-blog-images.s3.amazonaws.com/small-1694849400780-me.jpeg"
+            />
           </div>
         </div>{" "}
         <div className="flex items-center">

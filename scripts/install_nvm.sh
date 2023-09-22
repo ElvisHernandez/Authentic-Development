@@ -9,18 +9,15 @@ echo 'NVM Directory:' && echo $NVM_DIR;
 [ -s "$NVM_DIR/bash_completion" ] && echo 'Sourcing bash_completion' && \. "$NVM_DIR/bash_completion";
 echo 'Installing Node.js' && nvm install 18;
 echo 'Node version:' && node -v;
-echo 'Changing directory' && cd /home/ubuntu/app/cms-backend;
-echo 'Running npm install' && npm i;
+npm install --global yarn;
+echo 'Changing directory' && cd /home/ubuntu/app;
+echo 'Running yarn install' && yarn;
 
-echo -e "\nNODE_ENV=production" >> .env;
-npm run build;
-echo "Starting npm run start in the background...";
+echo -e "\nNODE_ENV=production" >> .env.local;
+yarn build;
+echo "Starting yarn start in the background...";
 /home/ubuntu/.nvm/versions/node/v18.16.1/bin/npm install -g pm2;
-pm2 start npm --name "strapi" -- run start;
+pm2 start npm --name "blitz" -- run start;
 echo "Ran npm run start in the background...";
 
-cd /home/ubuntu/app/website;
-npm i;
-npm run build;
-pm2 start npm --name "website" -- run start;
 pm2 save;

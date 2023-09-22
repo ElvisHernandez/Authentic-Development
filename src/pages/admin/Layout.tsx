@@ -73,7 +73,7 @@ function AdminLayout(props: Props) {
 
   const navigateTo = (page: keyof typeof Page) => {
     setPage(Page[page]);
-    router.push(`/admin?page=${page}`);
+    void router.push(`/admin?page=${page}`);
   };
 
   return (
@@ -123,7 +123,7 @@ function AdminLayout(props: Props) {
           className="btn btn-primary absolute left-[35%] bottom-[24px]"
           onClick={async () => {
             await logoutMutation();
-            router.push(Routes.Home());
+            void router.push(Routes.Home());
           }}
         >
           Logout

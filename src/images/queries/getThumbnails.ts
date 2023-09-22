@@ -14,29 +14,35 @@ export default resolver.pipe(
   resolver.authorize(),
   isAdminUserResolver,
   async (payload) => {
-    const BUCKET_NAME = getAwsBucketName();
+    let paginatedThumbnailUrls: Array<string[]> = [];
 
-    const res = await s3Client.send(
-      new ListObjectsCommand({
-        Bucket: BUCKET_NAME,
-        Prefix: "small",
-      })
-    );
+    try {
+      const BUCKET_NAME = getAwsBucketName();
 
-    const paginatedThumbnailUrls: Array<string[]> = (res.Contents || [])
-      .map((obj) => `https://${BUCKET_NAME}.s3.amazonaws.com/${obj.Key}`)
-      .reduce(
-        (acc, thumbnailUrl) => {
-          const lastPage = acc[acc.length - 1];
-          if (lastPage?.length === payload.thumbnailsPerPage) {
-            acc.push([thumbnailUrl]);
-          } else {
-            lastPage?.push(thumbnailUrl);
-          }
-          return acc;
-        },
-        [[]] as Array<string[]>
+      const res = await s3Client.send(
+        new ListObjectsCommand({
+          Bucket: BUCKET_NAME,
+          Prefix: "small",
+        })
       );
+
+      paginatedThumbnailUrls = (res.Contents || [])
+        .map((obj) => `https://${BUCKET_NAME}.s3.amazonaws.com/${obj.Key}`)
+        .reduce(
+          (acc, thumbnailUrl) => {
+            const lastPage = acc[acc.length - 1];
+            if (lastPage?.length === payload.thumbnailsPerPage) {
+              acc.push([thumbnailUrl]);
+            } else {
+              lastPage?.push(thumbnailUrl);
+            }
+            return acc;
+          },
+          [[]] as Array<string[]>
+        );
+    } catch (e) {
+      console.error(e);
+    }
 
     return {
       paginatedThumbnailUrls,

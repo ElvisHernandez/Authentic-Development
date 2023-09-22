@@ -15,7 +15,7 @@
     apt-get update;
     apt-get install -y awscli;
     su - ubuntu -c "
-        aws s3 cp s3://adb-ec2-config-files/.env /home/ubuntu/app/cms-backend;
-        aws s3 cp s3://adb-ec2-config-files/data.db /home/ubuntu/app/cms-backend/.tmp/;
+        aws s3 cp s3://adb-ec2-config-files/.env.local /home/ubuntu/app/.env.local;
+        aws s3 cp s3://adb-ec2-config-files/db.sqlite /home/ubuntu/app/db/db.sqlite;
     "
 } &> /home/ubuntu/user_data.log

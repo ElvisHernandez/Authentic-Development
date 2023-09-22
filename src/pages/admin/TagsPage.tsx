@@ -159,3 +159,7 @@ const TagEditor = (props: TagEditorProps) => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  return {};
+}

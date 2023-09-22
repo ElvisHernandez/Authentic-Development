@@ -1,6 +1,7 @@
 import { BlitzPage, Routes } from "@blitzjs/next";
 import { useQuery } from "@blitzjs/rpc";
 import { Post } from "@prisma/client";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { Suspense } from "react";
 import Layout from "src/core/layouts/Layout";
@@ -37,9 +38,12 @@ const BlogPageContent = () => {
 
         <section className="flex flex-col gap-4 items-center">
           {posts.map((post) => (
-            <div className="card h-[500px] w-[fit-content] rounded bg-slate-200 shadow-xl">
+            <div
+              key={post.id}
+              className="card h-[500px] w-[fit-content] rounded bg-slate-200 shadow-xl"
+            >
               <figure>
-                <img src={getPostImageSrc(post)} alt="Album" />
+                <Image src={getPostImageSrc(post)} alt="Blog Image" />
               </figure>
               <div className="card-body max-w-[600px]">
                 <h3 className="card-title">{post.title}</h3>

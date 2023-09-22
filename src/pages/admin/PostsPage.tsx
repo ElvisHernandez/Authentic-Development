@@ -67,7 +67,7 @@ export default function PostsPage() {
     setMode(Mode.read);
   };
 
-  const deletePost = async (post: { id: number }) => {
+  const deletePost = async (post: PartialPost & { id: number }) => {
     await deletePostMutation(post);
     await refetchPosts();
   };
@@ -271,4 +271,8 @@ function PostEditor(props: PostEditorProps) {
       <ImageModal modalRef={imageModalRef} imageInserter={imageInserter} />
     </>
   );
+}
+
+export async function getServerSideProps() {
+  return {};
 }

@@ -2,7 +2,7 @@ import { SessionContext } from "@blitzjs/auth";
 import db from "db";
 import { getAdminEmail } from "./getEnvVars";
 
-export default async (session: SessionContext) => {
+const isAdminUser = async (session: SessionContext) => {
   const { userId } = session;
 
   if (!userId) return false;
@@ -13,3 +13,5 @@ export default async (session: SessionContext) => {
 
   return true;
 };
+
+export default isAdminUser;

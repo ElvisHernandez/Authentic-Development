@@ -20,7 +20,7 @@ export function ThumbnailGrid(props: ThumbnailGridProps) {
 
   return (
     <div className="mt-[32px] place-items-center grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-      {paginatedThumbnailUrls[thumbnailPage]?.map((thumbnailUrl) => (
+      {(paginatedThumbnailUrls?.[thumbnailPage] ?? []).map((thumbnailUrl) => (
         <div
           key={thumbnailUrl}
           className="relative"
@@ -63,7 +63,7 @@ export default function ImagesPage() {
     reader.onloadend = async () => {
       const base64Data = reader.result;
       await uploadImageMutation({ file: base64Data as string, fileName: file.name });
-      fetchThumbnails();
+      void fetchThumbnails();
       e.target.value = "";
     };
   };
@@ -75,7 +75,7 @@ export default function ImagesPage() {
     );
 
     await deleteImageMutation({ s3ObjectKeys });
-    fetchThumbnails();
+    void fetchThumbnails();
   };
 
   return (
@@ -84,7 +84,9 @@ export default function ImagesPage() {
 
       <div className="p-[32px] w-4/5 h-fit min-h-[500px] bg-base-200 rounded">
         <header className="flex justify-between mb-[32px]">
-          <p>Images: {paginatedThumbnailUrls.reduce((acc, page) => acc + page.length, 0)}</p>
+          <p>
+            Images: {(paginatedThumbnailUrls ?? []).reduce((acc, page) => acc + page.length, 0)}
+          </p>
 
           <input
             type="file"

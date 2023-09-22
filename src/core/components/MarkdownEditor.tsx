@@ -39,7 +39,6 @@ export function ImageModal(props: {
 export function Markdown(props: { value: string }) {
   return (
     <ReactMarkdown
-      children={props.value ?? ""}
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ node, ...props }) => (
@@ -49,7 +48,9 @@ export function Markdown(props: { value: string }) {
           </>
         ),
       }}
-    />
+    >
+      {props.value ?? ""}
+    </ReactMarkdown>
   );
 }
 
