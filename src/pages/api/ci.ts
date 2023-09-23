@@ -44,7 +44,7 @@ export default api(async (req, res, ctx) => {
       "---------------------------Yarn install latest packages---------------------------"
     );
     const { stdout: stdout2, stderr: stderror2 } = await execPromisified(
-      "NODE_ENV=development yarn install"
+      "yarn install --production=false"
     );
     response.logs.push(stdout2);
     response.errors.push(stderror2);
@@ -60,7 +60,7 @@ export default api(async (req, res, ctx) => {
       "---------------------------Yarn prune dev dependencies---------------------------"
     );
     const { stdout: stdout2Point5, stderr: stderror2Point5 } = await execPromisified(
-      "yarn install --production"
+      "yarn install --production=true"
     );
     response.logs.push(stdout2Point5);
     response.errors.push(stderror2Point5);
