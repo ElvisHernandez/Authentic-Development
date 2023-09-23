@@ -20,8 +20,15 @@ export default api(async (req, res, ctx) => {
   }
 
   try {
+    const { stdout: stdout0, stderr: stderror0 } = await execPromisified(`cd /home/ubuntu/app`);
+    // console.log(`stdout: ${stdout1}`);
+    // console.log(`stderr: ${stderror1}`);
+
+    response.msg += stdout0 + "\n";
+    response.error += stderror0 + "\n";
+
     const { stdout: stdout1, stderr: stderror1 } = await execPromisified(
-      `git clone git@github.com:${process.env.TF_VAR_github_username}/${process.env.TF_VAR_github_repository}.git /home/ubuntu/app`
+      `GIT_SSH_COMMAND="ssh -i /home/ubuntu/deploy_key.pem" git pull`
     );
     // console.log(`stdout: ${stdout1}`);
     // console.log(`stderr: ${stderror1}`);
