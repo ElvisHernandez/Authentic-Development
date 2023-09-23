@@ -17,7 +17,7 @@ echo -e "\nNODE_ENV=production" >> .env.local;
 yarn build;
 echo "Starting yarn start in the background...";
 npm install --global pm2;
-pm2 start npm --name "blitz" -- run start;
+pm2 start yarn --name "blitz" -- start;
 echo "Ran npm run start in the background...";
 
 pm2 save;

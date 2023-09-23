@@ -4,7 +4,7 @@ import util from "util";
 
 const execPromisified = util.promisify(exec);
 
-export default api(async (req, res) => {
+export default api(async (req, res, ctx) => {
   const { secret } = req.body;
 
   const response: {
