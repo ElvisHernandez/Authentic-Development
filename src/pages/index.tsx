@@ -120,9 +120,13 @@ const HeroSection = () => {
         </p>
 
         <div className="flex justify-center mt-[48px]">
-          <button className="btn btn-outline btn-accent normal-case w-[140px] mr-[24px]">
+          <Link
+            href={`/#contact`}
+            className="btn btn-outline btn-accent normal-case w-[140px] mr-[24px]"
+            onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}
+          >
             Free Consult
-          </button>
+          </Link>
           <Link
             href={`/#services`}
             className="btn btn-outline btn-info normal-case w-[140px]"
