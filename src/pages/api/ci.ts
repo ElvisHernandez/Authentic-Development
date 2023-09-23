@@ -20,6 +20,7 @@ export default api(async (req, res, ctx) => {
       (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
+          res.status(500).json({ msg: "Failed to run clone latest changes" });
         }
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);
@@ -37,7 +38,7 @@ export default api(async (req, res, ctx) => {
         });
       }
     );
+  } else {
+    res.status(response.statusCode).json(response);
   }
-
-  res.status(response.statusCode).json(response);
 });
