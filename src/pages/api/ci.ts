@@ -50,6 +50,13 @@ export default api(async (req, res, ctx) => {
     response.errors.push(stderror2);
 
     response.logs.push(
+      "---------------------------Yarn build blitz app---------------------------"
+    );
+    const { stdout: stdout3, stderr: stderror3 } = await execPromisified("yarn build");
+    response.logs.push(stdout3);
+    response.errors.push(stderror3);
+
+    response.logs.push(
       "---------------------------Yarn prune dev dependencies---------------------------"
     );
     const { stdout: stdout2Point5, stderr: stderror2Point5 } = await execPromisified(
@@ -57,13 +64,6 @@ export default api(async (req, res, ctx) => {
     );
     response.logs.push(stdout2Point5);
     response.errors.push(stderror2Point5);
-
-    response.logs.push(
-      "---------------------------Yarn build blitz app---------------------------"
-    );
-    const { stdout: stdout3, stderr: stderror3 } = await execPromisified("yarn build");
-    response.logs.push(stdout3);
-    response.errors.push(stderror3);
 
     response.logs.push(
       "---------------------------Apply latest migrations---------------------------"
