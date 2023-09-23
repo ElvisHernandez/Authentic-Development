@@ -24,6 +24,8 @@ export default api(async (req, res) => {
   }
 
   try {
+    const cwd = "/home/ubuntu/app";
+
     response.logs.push(
       "---------------------------CD into app directory---------------------------"
     );
@@ -35,7 +37,8 @@ export default api(async (req, res) => {
       "---------------------------Git pull latest changes---------------------------"
     );
     const { stdout: stdout1, stderr: stderror1 } = await execPromisified(
-      `GIT_SSH_COMMAND="ssh -i /home/ubuntu/deploy_key.pem" git pull`
+      `GIT_SSH_COMMAND="ssh -i /home/ubuntu/deploy_key.pem" git pull`,
+      { cwd }
     );
     response.logs.push(stdout1);
     response.errors.push(stderror1);
@@ -44,7 +47,8 @@ export default api(async (req, res) => {
       "---------------------------Yarn install latest packages---------------------------"
     );
     const { stdout: stdout2, stderr: stderror2 } = await execPromisified(
-      "yarn install --production=false"
+      "yarn install --production=false",
+      { cwd }
     );
     response.logs.push(stdout2);
     response.errors.push(stderror2);
@@ -60,7 +64,8 @@ export default api(async (req, res) => {
       "---------------------------Yarn prune dev dependencies---------------------------"
     );
     const { stdout: stdout2Point5, stderr: stderror2Point5 } = await execPromisified(
-      "yarn install --production=true"
+      "yarn install --production=true",
+      { cwd }
     );
     response.logs.push(stdout2Point5);
     response.errors.push(stderror2Point5);
@@ -69,7 +74,8 @@ export default api(async (req, res) => {
       "---------------------------Apply latest migrations---------------------------"
     );
     const { stdout: stdout4, stderr: stderror4 } = await execPromisified(
-      "npx blitz prisma migrate deploy"
+      "npx blitz prisma migrate deploy",
+      { cwd }
     );
     response.logs.push(stdout4);
     response.errors.push(stderror4);
