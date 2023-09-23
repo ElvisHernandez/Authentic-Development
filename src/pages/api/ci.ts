@@ -43,7 +43,7 @@ export default api(async (req, res, ctx) => {
     response.logs.push(
       "---------------------------Yarn install latest packages---------------------------"
     );
-    const { stdout: stdout2, stderr: stderror2 } = await execPromisified("yarn");
+    const { stdout: stdout2, stderr: stderror2 } = await execPromisified("yarn install");
     response.logs.push(stdout2);
     response.errors.push(stderror2);
 
