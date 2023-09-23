@@ -15,9 +15,11 @@ jobs:
     steps:
       - name: Send CI webhook POST request
         run: |
-          exec 3>&1
-          status_code=$(curl -X POST "https://authenticdevelopment.net/api/ci" -d "secret=${{ secrets.CI_SECRET }}" -w "%{http_code}" -o >(cat >&3) 2>&1)
-          if [ "$status_code" -ne "200" ]; then
-            echo "Error occurred with status code: $status_code"
-            exit 1
+          response_json=$(curl -s -X POST "https://authenticdevelopment.net/api/ci" -d "secret=${{ secrets.CI_SECRET }}")
+          echo "$response_json" | jq '.logs[]'
+          status=$(echo "$response_json" | jq -r '.statusCode')
+          if [ "$status" != 200 ]; then
+              echo "Errors from server:"
+              echo "$response_json" | jq '.errors[]'
+              exit 1
           fi
