@@ -45,6 +45,6 @@ export default api(async (req, res, ctx) => {
 
     res.status(200).json({ msg: "CI completed successully" });
   } catch (e) {
-    res.status(500).json({ msg: "CI failed" });
+    res.status(500).json({ msg: "CI failed", error: e.message });
   }
 });
