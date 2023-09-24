@@ -12,7 +12,7 @@ echo 'Node version:' && node -v;
 npm install --global yarn;
 echo 'Changing directory' && cd /home/ubuntu/app;
 echo 'Running yarn install' && yarn;
-
+yarn cache clean;
 echo -e "\nNODE_ENV=production" >> .env.local;
 yarn build;
 echo "Starting yarn start in the background...";
