@@ -27,13 +27,6 @@ export default api(async (req, res, ctx) => {
     const cwd = "/home/ubuntu/app";
 
     response.logs.push(
-      "---------------------------CD into app directory---------------------------"
-    );
-    const { stdout: stdout0, stderr: stderror0 } = await execPromisified(`cd /home/ubuntu/app`);
-    response.logs.push(stdout0);
-    response.errors.push(stderror0);
-
-    response.logs.push(
       "---------------------------Git pull latest changes---------------------------"
     );
     const { stdout: stdout1, stderr: stderror1 } = await execPromisified(
@@ -56,7 +49,7 @@ export default api(async (req, res, ctx) => {
     response.logs.push(
       "---------------------------Yarn build blitz app---------------------------"
     );
-    const { stdout: stdout3, stderr: stderror3 } = await execPromisified("yarn build");
+    const { stdout: stdout3, stderr: stderror3 } = await execPromisified("yarn build", { cwd });
     response.logs.push(stdout3);
     response.errors.push(stderror3);
 
