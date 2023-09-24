@@ -77,7 +77,7 @@ export default api(async (req, res, ctx) => {
 
     setTimeout(() => {
       void execPromisified("/home/ubuntu/.nvm/versions/node/v18.18.0/bin/pm2 restart blitz");
-    }, 5000);
+    }, 10000);
   } catch (e) {
     response.statusCode = 500;
     response.logs.push("CI failed");
