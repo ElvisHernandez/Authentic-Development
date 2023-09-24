@@ -83,6 +83,17 @@ model Tag {
   posts Post[]
 }
 
+model Inquiry {
+  id             Int    @id @default(autoincrement())
+  name           String
+  email          String
+  inquiryDetails String
+  projectType    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // NOTE: It's highly recommended to use an enum for the token type
 //       but enums only work in Postgres.
 //       See: https://blitzjs.com/docs/database-overview#switch-to-postgre-sql
