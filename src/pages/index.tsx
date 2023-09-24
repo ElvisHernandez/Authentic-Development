@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import { BlitzPage, Routes } from "@blitzjs/next";
+import * as Sentry from "@sentry/nextjs";
 import {
   MdEngineering,
   MdDesignServices,
@@ -453,7 +454,11 @@ const ContactSection = () => {
   const [createInquiryMutation, { isLoading, isSuccess, isError }] = useMutation(
     createInquiryResolver,
     {
-      onError: () => {
+      onError: (err, variables) => {
+        Sentry.captureException({
+          userData: variables,
+          error: err,
+        });
         setBtnDisabled(false);
       },
     }

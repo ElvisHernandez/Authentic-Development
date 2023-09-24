@@ -58,3 +58,5 @@ lib-cov
 *.tfstate
 .terraform/
 private/
+# Sentry Auth Token
+.sentryclirc
