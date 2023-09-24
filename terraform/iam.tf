@@ -23,7 +23,8 @@ resource "aws_iam_policy" "ec2-policy" {
     "Statement": [
       {
         "Action": [
-          "s3:GetObject"
+          "s3:GetObject",
+          "s3:PutObject"
         ],
         "Effect": "Allow",
         "Resource": "arn:aws:s3:::${var.s3_ec2_config_bucket}/*"

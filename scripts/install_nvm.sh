@@ -21,3 +21,5 @@ pm2 start yarn --name "blitz" -- start;
 echo "Ran npm run start in the background...";
 
 pm2 save;
+
+(crontab -l 2>/dev/null; echo "* * * * * aws s3 cp /home/ubuntu/app/db/db.sqlite s3://adb-ec2-config-files/db.sqlite-\$(date +\%F-\%T) >> /home/ubuntu/cron.log 2>&1") | crontab -
