@@ -47,7 +47,7 @@ const HeroSection = () => {
   return (
     <section className="h-screen">
       <div className="font-yellowtail top-[48px] left-[48px] text-4xl absolute text-white hidden xl:block">
-        <Link href="/">aD</Link>
+        <Link href="/">AD</Link>
       </div>
 
       <div className="relative overflow-x-clip hidden xl:block">
