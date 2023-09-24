@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useRef, useState } from "react";
-import { useQuery } from "@blitzjs/rpc";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { useMutation, useQuery } from "@blitzjs/rpc";
 import { BlitzPage, Routes } from "@blitzjs/next";
 import {
   MdEngineering,
@@ -16,6 +16,7 @@ import Image from "next/image";
 import MeImage from "../../public/me.jpeg";
 import Link from "next/link";
 import { handleLinkClickSmoothScroll, smoothScroll } from "src/utils/smoothScroll";
+import createInquiryResolver from "src/inquiry/mutations/createInquiry";
 
 const SectionHeader = (props: { sectionName: string }) => (
   <div className="flex py-[48px]">
@@ -437,7 +438,60 @@ const ProcessSection = () => {
 };
 
 const ContactSection = () => {
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+    inquiryDetails: "",
+  });
   const [newProject, setNewProject] = useState(true);
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    inquiryDetails: false,
+  });
+  const [createInquiryMutation, { isLoading, isSuccess, isError }] = useMutation(
+    createInquiryResolver,
+    {
+      onError: () => {
+        setBtnDisabled(false);
+      },
+    }
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: false }));
+    }
+
+    if (name in details) {
+      setDetails((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async () => {
+    const { name, email, inquiryDetails } = details;
+
+    if (!name || !email || !inquiryDetails) {
+      setErrors({
+        name: !name,
+        email: !email,
+        inquiryDetails: !inquiryDetails,
+      });
+      return;
+    }
+    setBtnDisabled(true);
+
+    await createInquiryMutation({
+      name: details.name,
+      email: details.email,
+      inquiryDetails: details.inquiryDetails,
+      projectType: newProject ? "New project" : "Existing project",
+    });
+  };
+
   return (
     <section id="contact">
       <SectionHeader sectionName="Contact" />
@@ -457,7 +511,12 @@ const ContactSection = () => {
           <input
             type="text"
             placeholder="Name"
-            className="input input-primary bg-slate-100 input-bordered w-full text-sm"
+            name="name"
+            value={details.name}
+            onChange={handleChange}
+            className={`input ${
+              errors.name ? "input-error" : "input-primary"
+            } bg-slate-100 input-bordered w-full text-sm`}
           />
         </div>
         <div className="form-control w-[80%] sm:w-[50%]">
@@ -467,7 +526,12 @@ const ContactSection = () => {
           <input
             type="text"
             placeholder="Email"
-            className="input input-primary bg-slate-100 input-bordered w-full text-sm"
+            name="email"
+            value={details.email}
+            onChange={handleChange}
+            className={`input ${
+              errors.email ? "input-error" : "input-primary"
+            } bg-slate-100 input-bordered w-full text-sm`}
           />
         </div>
         <div className="form-control w-[80%] sm:w-[50%]">
@@ -475,7 +539,12 @@ const ContactSection = () => {
             <span className="label-text text-base-100">How can I help you?*</span>
           </label>
           <textarea
-            className="textarea textarea-primary textarea-bordered h-24 bg-slate-100 text-sm"
+            name="inquiryDetails"
+            value={details.inquiryDetails}
+            onChange={handleChange}
+            className={`textarea ${
+              errors.inquiryDetails ? "textarea-error" : "textarea-primary"
+            } textarea-bordered h-24 bg-slate-100 text-sm`}
             placeholder="I want to build..."
           ></textarea>
         </div>
@@ -510,15 +579,66 @@ const ContactSection = () => {
             </div>
           </div>
         </div>
-        <button className="btn normal-case w-[144px] my-[24px]">Submit</button>{" "}
+        <button
+          className="btn normal-case w-[144px] my-[24px]"
+          onClick={handleSubmit}
+          disabled={btnDisabled || isLoading}
+        >
+          Submit
+        </button>{" "}
       </div>
+      {isSuccess && (
+        <Alert alertVariant="alert-success" msg="Your inquiry was submitted successfully!" />
+      )}
+      {isError && (
+        <Alert
+          alertVariant="alert-error"
+          msg="Apologies, inquiry failed to send. Please try again."
+        />
+      )}
     </section>
+  );
+};
+
+const Alert = (props: { alertVariant: string; msg: string }) => {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    if (!show) return;
+
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [show]);
+
+  if (!show) return null;
+
+  return (
+    <div className={`alert ${props.alertVariant} fixed top-[88px] right-[24px] w-[fit-content]`}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="stroke-current shrink-0 h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>{props.msg}</span>
+    </div>
   );
 };
 
 const HomeContent = () => {
   const [result] = useQuery(getPosts, {});
-  console.log(result);
 
   return (
     <Layout title="Home">
