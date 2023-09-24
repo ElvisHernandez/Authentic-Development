@@ -131,7 +131,7 @@ const HeroSection = () => {
           <Link
             href={`/#services`}
             className="btn btn-outline btn-info normal-case w-[140px]"
-            // onClick={(e) => handleLinkClickSmoothScroll(e, "services")}
+            onClick={(e) => handleLinkClickSmoothScroll(e, "services")}
           >
             Services
           </Link>
