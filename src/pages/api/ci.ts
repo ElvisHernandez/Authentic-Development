@@ -74,11 +74,12 @@ export default api(async (req, res, ctx) => {
     response.errors.push(stderror4);
 
     response.logs.push("---------------------------Restart PM2 process---------------------------");
-    const { stdout: stdout5, stderr: stderror5 } = await execPromisified("pm2 restart blitz");
-    response.logs.push(stdout5);
-    response.errors.push(stderror5);
 
     res.status(200).json(response);
+
+    setTimeout(() => {
+      void execPromisified("/home/ubuntu/.nvm/versions/node/v18.18.0/bin/pm2 restart blitz");
+    }, 5000);
   } catch (e) {
     response.statusCode = 500;
     response.logs.push("CI failed");
