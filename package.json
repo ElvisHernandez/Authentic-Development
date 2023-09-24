@@ -11,6 +11,7 @@
     "test:watch": "vitest",
     "prepare": "husky install",
     "db": "sqlite3 db/db.sqlite --column --header",
+    "migrate:dev": "npx blitz prisma migrate dev",
     "ssh": "ssh -i ./private/ec2_private_key.pem ubuntu@$(terraform -chdir=$PWD/terraform output -no-color public_ip | tr -d '\"')"
   },
   "prisma": {
@@ -31,6 +32,7 @@
     "@blitzjs/next": "2.0.0-beta.33",
     "@blitzjs/rpc": "2.0.0-beta.33",
     "@prisma/client": "4.6.1",
+    "@sendgrid/mail": "7.7.0",
     "autoprefixer": "10.x",
     "blitz": "2.0.0-beta.33",
     "daisyui": "3.7.4",
