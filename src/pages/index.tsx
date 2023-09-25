@@ -116,9 +116,10 @@ const HeroSection = () => {
       <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
         <h1 className="text-5xl">Lets build an experience together</h1>
         <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
-          My name is Elvis, and I&apos;m a full-stack web developer specializing in creating SaaS
-          products for startups. I&apos;ve honed my skills as a Founding Software Engineer at
-          Onward, backed by Techstars, and Kraftful, supported by Y Combinator.
+          Hi, I&apos;m Elvis. As a former Founding Software Engineer at Onward and Kraftful, I now
+          dedicate my skills to developing agile and impactful Micro-SaaS solutions for startups.
+          Armed with valuable insights from my time at these companies, I&apos;m excited to help
+          bring your Micro-SaaS vision to life.
         </p>
 
         <div className="flex justify-center mt-[48px]">
@@ -175,7 +176,7 @@ const ServicesSection = () => (
       <p>
         You&apos;ve got the vision; we&apos;ve got the expertise to bring it to life. Whether
         you&apos;re starting from scratch or need to optimize your existing platform, we offer
-        comprehensive solutions that cater specifically to SaaS businesses.
+        comprehensive solutions that cater specifically to Micro-SaaS businesses.
       </p>
     </SectionTextContainer>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 px-[48px] pt-[48px]">
@@ -184,8 +185,8 @@ const ServicesSection = () => (
         <div className="font-medium mb-[12px]">End-to-End Development</div>
         <p className="text-sm">
           Why piece together multiple specialists when you can get it all done in one place? We
-          handle everything from initial sketches to the launch of your SaaS product. We even ensure
-          it runs smoothly after the big day.
+          handle everything from initial sketches to the launch of your Micro-SaaS product. We even
+          ensure it runs smoothly after the big day.
         </p>
       </div>
 
@@ -232,8 +233,8 @@ const ServicesSection = () => (
         <div className="font-medium mb-[12px]">24/7 Support & Maintenance</div>
         <p className="text-sm">
           We don&apos;t just disappear after launch. Our ongoing support and maintenance services
-          ensure your SaaS business continues to run smoothly, allowing you to focus on what you do
-          best—running your business.
+          ensure your Micro-SaaS business continues to run smoothly, allowing you to focus on what
+          you do best—running your business.
         </p>
       </div>
     </div>
@@ -324,8 +325,8 @@ const ProcessSection = () => {
       content: (
         <ol className="p-8">
           <li>
-            <span className="font-semibold text-primary">Deployment</span>: Make the SaaS product
-            live after final approval from the client.
+            <span className="font-semibold text-primary">Deployment</span>: Make the Micro-SaaS
+            product live after final approval from the client.
           </li>
           <li className="py-8">
             <span className="font-semibold text-primary">Monitoring</span>: Closely watch the
@@ -502,9 +503,9 @@ const ContactSection = () => {
       <SectionHeader sectionName="Contact" />
       <SectionTextContainer>
         <p className="pb-[48px]">
-          Looking to launch a groundbreaking SaaS solution, or eager to elevate an existing product
-          to new heights? Reach out through the form below, and you&apos;ll receive a personalized
-          response from me within one to two business days.
+          Looking to launch a groundbreaking Micro-SaaS solution, or eager to elevate an existing
+          product to new heights? Reach out through the form below, and you&apos;ll receive a
+          personalized response from me within one to two business days.
         </p>
       </SectionTextContainer>
 
