@@ -9,6 +9,8 @@ import {
   MdOutlineIntegrationInstructions,
   MdComputer,
   MdPrivateConnectivity,
+  MdArrowCircleLeft,
+  MdArrowCircleRight,
 } from "react-icons/md";
 
 import Layout from "src/core/layouts/Layout";
@@ -374,6 +376,9 @@ const ProcessSection = () => {
     };
   };
 
+  const isFirstStep = () => currentStepIndex === 0;
+  const isLastStep = () => currentStepIndex === processSteps.length - 1;
+
   return (
     <section id="process">
       <SectionHeader sectionName="Process" />
@@ -401,10 +406,9 @@ const ProcessSection = () => {
               `}
                 onClick={() => {
                   // 640px is the cutoff for tailwind sm breakpoint
+                  setCurrentStepIndex(i);
                   if (window.innerWidth < 640) {
                     modalRef.current?.showModal();
-                  } else {
-                    setCurrentStepIndex(i);
                   }
                 }}
               >
@@ -425,6 +429,22 @@ const ProcessSection = () => {
 
       <dialog ref={modalRef} className="modal fixed sm:hidden">
         <div className="modal-box">
+          <div className="flex justify-between mx-[12px]">
+            <MdArrowCircleLeft
+              className={`text-white transform scale-[2] ${isFirstStep() ? "opacity-50" : ""}`}
+              onClick={() => !isFirstStep() && setCurrentStepIndex((prev) => prev - 1)}
+            />
+            <h3 className="text-white font-semibold">
+              {processSteps[currentStepIndex]?.name}{" "}
+              <span className="font-normal">
+                ({currentStepIndex + 1}/{processSteps.length})
+              </span>
+            </h3>
+            <MdArrowCircleRight
+              className={`text-white transform scale-[2] ${isLastStep() ? "opacity-50" : ""}`}
+              onClick={() => !isLastStep() && setCurrentStepIndex((prev) => prev + 1)}
+            />
+          </div>
           <div className="text-white text-sm font-normal">
             {processSteps[currentStepIndex]?.content}
           </div>
