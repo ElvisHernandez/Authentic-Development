@@ -1,11 +1,19 @@
 import { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { MdPreview, MdOutlineFullscreen, MdOutlineFullscreenExit, MdImage } from "react-icons/md";
+import {
+  MdPreview,
+  MdOutlineFullscreen,
+  MdOutlineFullscreenExit,
+  MdImage,
+  MdSave,
+} from "react-icons/md";
 import { ThumbnailGrid } from "src/pages/admin/ImagesPage";
 import slugify from "slugify";
 import { handleLinkClickSmoothScroll } from "src/utils/smoothScroll";
 import React from "react";
+import { useMutation } from "@blitzjs/rpc";
+import updatePostResolver from "src/posts/mutations/updatePost";
 
 export function ImageModal(props: {
   modalRef: React.RefObject<HTMLDialogElement>;
@@ -123,6 +131,9 @@ function UnmemoizedMarkdown(props: { value: string }) {
             </p>
           );
         },
+        img: ({ node, ...props }) => {
+          return <img {...props} className="rounded" />;
+        },
       }}
     >
       {props.value ?? ""}
@@ -134,7 +145,9 @@ export const Markdown = React.memo(UnmemoizedMarkdown);
 
 export type MarkdownEditorProps = {
   value: string | undefined;
+  isLoading: boolean;
   updateValue: (value: string) => void;
+  handleSave?: () => Promise<void>;
 };
 
 export default function MarkdownEditor(props: MarkdownEditorProps) {
@@ -142,6 +155,8 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
   const [fullScreen, setFullScreen] = useState(false);
   const [cursorIndex, setCursorIndex] = useState(0);
   const modalRef = useRef<HTMLDialogElement>(null);
+
+  const [updatePostMutation] = useMutation(updatePostResolver);
 
   const embedImage = async (imageUrl: string) => {
     const { value, updateValue } = props;
@@ -162,7 +177,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
     <div className={fullScreen ? "w-screen h-screen fixed top-0 left-0 z-50" : ""}>
       <ImageModal modalRef={modalRef} imageInserter={embedImage} />
 
-      <div className="flex justify-end items-center bg-base-100 p-4 h-[5%] border-b-[1px] border-base-300">
+      <div className="flex justify-end items-center bg-base-100 p-4 h-[5%] border-b-[1px] border-base-300 gap-x-2">
         <MdImage className="cursor-pointer" onClick={() => modalRef.current?.showModal()} />
         <MdPreview className="cursor-pointer" onClick={() => setShowPreview(!showPreview)} />
         {!fullScreen && (
@@ -172,6 +187,12 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
           <MdOutlineFullscreenExit
             className="cursor-pointer"
             onClick={() => setFullScreen(false)}
+          />
+        )}
+        {!!props.handleSave && (
+          <MdSave
+            className={`cursor-pointer ${props.isLoading ? "opacity-50" : ""}`}
+            onClick={props.handleSave}
           />
         )}
       </div>

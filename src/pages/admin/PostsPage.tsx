@@ -10,6 +10,7 @@ import updatePostResolver from "src/posts/mutations/updatePost";
 import deletePostResolver from "src/posts/mutations/deletePost";
 import getTagsResolver from "src/tags/queries/getTags";
 import Image from "next/image";
+import { Alert } from "src/core/components/Alert";
 
 enum Mode {
   read = "Read",
@@ -19,7 +20,7 @@ enum Mode {
 
 type PartialPost = Pick<Post, "title" | "content" | "thumbnailUrl" | "description">;
 
-type PostWithTagIds = PartialPost & {
+export type PostWithTagIds = PartialPost & {
   selectedTagIds: number[];
 };
 
@@ -207,7 +208,7 @@ const DeleteModal = ({
 
 interface PostEditorProps {
   mode: Mode;
-  post: PartialPost & { tags?: Array<{ id: number }> };
+  post: PartialPost & { id: number; tags?: Array<{ id: number }> };
   setPost: (post: Partial<Post>) => void;
   handleSubmit: (e: React.MouseEvent<HTMLButtonElement>, post: PostWithTagIds) => Promise<void>;
 }
@@ -220,6 +221,7 @@ function PostEditor(props: PostEditorProps) {
   const [thumbnailUrl, setThumbnailUrl] = useState(post.thumbnailUrl || "");
   const imageModalRef = useRef<HTMLDialogElement>(null);
   const [tags] = useQuery(getTagsResolver, {});
+  const [updatePostMutation, { isSuccess, isError, isLoading }] = useMutation(updatePostResolver);
 
   const onSelectedTagsChange = (e) => {
     const { value, checked } = e.target;
@@ -234,6 +236,11 @@ function PostEditor(props: PostEditorProps) {
   const imageInserter = async (imageSrc) => {
     setThumbnailUrl(imageSrc);
     imageModalRef?.current?.close();
+  };
+
+  const handleEditorSave = async () => {
+    if (mode !== Mode.update) return;
+    await updatePostMutation({ ...post, selectedTagIds, thumbnailUrl });
   };
 
   return (
@@ -297,11 +304,14 @@ function PostEditor(props: PostEditorProps) {
 
         <MarkdownEditor
           value={post.content}
+          handleSave={mode === Mode.update ? handleEditorSave : undefined}
           updateValue={(value: string) => setPost({ content: value })}
+          isLoading={isLoading}
         />
 
         <button
           className="btn btn-accent mt-[48px] mb-[24px] float-right"
+          disabled={isLoading}
           onClick={(e) => handleSubmit(e, { ...post, selectedTagIds, thumbnailUrl })}
         >
           {mode === Mode.create ? "Create Post" : "Update Post"}
@@ -309,6 +319,15 @@ function PostEditor(props: PostEditorProps) {
       </form>
 
       <ImageModal modalRef={imageModalRef} imageInserter={imageInserter} />
+      {isSuccess && (
+        <Alert alertVariant="alert-success" msg="Your inquiry was submitted successfully!" />
+      )}
+      {isError && (
+        <Alert
+          alertVariant="alert-error"
+          msg="Apologies, inquiry failed to send. Please try again."
+        />
+      )}
     </>
   );
 }
