@@ -3,6 +3,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { MdPreview, MdOutlineFullscreen, MdOutlineFullscreenExit, MdImage } from "react-icons/md";
 import { ThumbnailGrid } from "src/pages/admin/ImagesPage";
+import slugify from "slugify";
+import { handleLinkClickSmoothScroll } from "src/utils/smoothScroll";
+import React from "react";
 
 export function ImageModal(props: {
   modalRef: React.RefObject<HTMLDialogElement>;
@@ -36,23 +39,98 @@ export function ImageModal(props: {
   );
 }
 
-export function Markdown(props: { value: string }) {
+function UnmemoizedMarkdown(props: { value: string }) {
+  const isHashLink = (href?: string) => !!href && href[0] === "#";
+  const getSlugifiedId = (props: React.PropsWithChildren): string => {
+    if (typeof props.children?.[0] !== "string") return "";
+
+    return slugify(props.children[0].replaceAll("'", ""), { lower: true });
+  };
+  const noop = () => {};
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ node, ...props }) => (
           <>
-            <h1 className="font-bold text-2xl" {...props}></h1>
+            <h1 className="font-bold text-2xl text-center" {...props}></h1>
             <div className="divider my-0"></div>
           </>
         ),
+        h2: ({ node, ...props }) => {
+          console.log("In the h2 thing: ", props.children);
+          return (
+            <>
+              <h2
+                id={getSlugifiedId(props)}
+                className="font-bold text-xl text-center"
+                {...props}
+              ></h2>
+              <div className="divider my-0"></div>
+            </>
+          );
+        },
+        h3: ({ node, ...props }) => {
+          return (
+            <h3 {...props} id={getSlugifiedId(props)} className="font-semibold text-lg">
+              {props.children}
+            </h3>
+          );
+        },
+        a: ({ node, ...props }) => {
+          return (
+            <a
+              {...props}
+              className="underline"
+              onClick={(e) =>
+                isHashLink(props.href)
+                  ? handleLinkClickSmoothScroll(e, props.href?.slice(1) as string)
+                  : noop()
+              }
+            >
+              {props.children}
+            </a>
+          );
+        },
+
+        ol: ({ node, ...props }) => {
+          return (
+            <div className="flex justify-center">
+              <ol {...props} className="list-decimal font-medium list-inside">
+                {props.children}
+              </ol>
+            </div>
+          );
+        },
+        li: ({ node, ...props }) => {
+          return (
+            <li {...props} className="ml-[24px]">
+              {props.children}
+            </li>
+          );
+        },
+        ul: ({ node, ...props }) => {
+          return (
+            <ul {...props} className="px-[24px] list-disc">
+              {props.children}
+            </ul>
+          );
+        },
+        p: ({ node, ...props }) => {
+          return (
+            <p {...props} className="px-[24px]">
+              {props.children}
+            </p>
+          );
+        },
       }}
     >
       {props.value ?? ""}
     </ReactMarkdown>
   );
 }
+
+export const Markdown = React.memo(UnmemoizedMarkdown);
 
 export type MarkdownEditorProps = {
   value: string | undefined;
@@ -62,11 +140,22 @@ export type MarkdownEditorProps = {
 export default function MarkdownEditor(props: MarkdownEditorProps) {
   const [showPreview, setShowPreview] = useState(true);
   const [fullScreen, setFullScreen] = useState(false);
+  const [cursorIndex, setCursorIndex] = useState(0);
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const embedImage = async (imageUrl: string) => {
-    props.updateValue((props.value ?? "") + `![](${imageUrl})`);
+    const { value, updateValue } = props;
+    if (!value) return;
+
+    const newValue = value.slice(0, cursorIndex) + `![](${imageUrl})` + value.slice(cursorIndex);
+    updateValue(newValue);
     modalRef.current?.close();
+  };
+
+  const handleTextSelect = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const selectionEnd = e.currentTarget?.selectionEnd;
+    if (!selectionEnd) return;
+    setCursorIndex(selectionEnd);
   };
 
   return (
@@ -95,6 +184,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
           ${fullScreen ? "h-screen" : "h-[400px]"}
           rounded-none p-4 border-0 focus:outline-none`}
           onChange={(e) => props.updateValue(e.target.value)}
+          onSelect={handleTextSelect}
           value={props.value}
         ></textarea>
 
