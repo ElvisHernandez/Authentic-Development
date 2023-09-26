@@ -23,6 +23,14 @@ type PostWithTagIds = PartialPost & {
   selectedTagIds: number[];
 };
 
+const createEmptyPost = () => ({
+  id: 0,
+  title: "",
+  content: "",
+  description: "",
+  thumbnailUrl: "",
+});
+
 export default function PostsPage() {
   const context = useContext(Context);
 
@@ -30,19 +38,11 @@ export default function PostsPage() {
   const [createPost] = useMutation(createPostMutation);
   const [updatePostMutation] = useMutation(updatePostResolver);
   const [deletePostMutation] = useMutation(deletePostResolver);
+  const deleteModalRef = useRef<HTMLDialogElement>(null);
 
-  const [newPost, setNewPost] = useState({
-    title: "",
-    content: "",
-    description: "",
-    thumbnailUrl: "",
-  });
-  const [selectedPost, setSelectedPost] = useState({
-    title: "",
-    content: "",
-    description: "",
-    thumbnailUrl: "",
-  });
+  const [postToDelete, setPostToDelete] = useState(createEmptyPost());
+  const [newPost, setNewPost] = useState(createEmptyPost());
+  const [selectedPost, setSelectedPost] = useState(createEmptyPost());
 
   const [mode, setMode] = useState<Mode>(Mode.read);
 
@@ -67,10 +67,12 @@ export default function PostsPage() {
     setMode(Mode.read);
   };
 
-  const deletePost = async (post: PartialPost & { id: number }) => {
-    await deletePostMutation(post);
+  const deletePost = async () => {
+    await deletePostMutation(postToDelete);
     await refetchPosts();
+    setPostToDelete(createEmptyPost());
   };
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-center py-[48px] text-[38px] font-semibold">{context.page}</h1>
@@ -89,12 +91,7 @@ export default function PostsPage() {
             <button
               className="btn btn-info"
               onClick={() => {
-                setNewPost({
-                  title: "",
-                  content: "",
-                  description: "",
-                  thumbnailUrl: "",
-                });
+                setNewPost(createEmptyPost());
                 setMode(Mode.create);
               }}
             >
@@ -132,7 +129,13 @@ export default function PostsPage() {
                       >
                         Edit
                       </button>
-                      <button className="btn btn-error" onClick={() => deletePost(post)}>
+                      <button
+                        className="btn btn-error"
+                        onClick={() => {
+                          setPostToDelete(post);
+                          deleteModalRef.current?.showModal();
+                        }}
+                      >
                         Delete
                       </button>
                     </td>
@@ -161,9 +164,46 @@ export default function PostsPage() {
           />
         )}
       </div>
+
+      <DeleteModal
+        modalRef={deleteModalRef}
+        deleteHandler={deletePost}
+        postToDelete={postToDelete}
+      />
     </div>
   );
 }
+
+const DeleteModal = ({
+  modalRef,
+  deleteHandler,
+  postToDelete,
+}: {
+  postToDelete: { title: string };
+  deleteHandler: () => Promise<void>;
+  modalRef: React.RefObject<HTMLDialogElement>;
+}) => {
+  return (
+    <dialog ref={modalRef} className="modal ">
+      <div className="modal-box absolute">
+        <h3 className="font-bold text-lg">Are you sure you want to delete this post?</h3>
+        <p className="py-4">Post: {postToDelete.title}</p>
+        <div className="flex justify-center">
+          <button
+            className="btn btn-error"
+            onClick={async () => {
+              modalRef.current?.close();
+              await deleteHandler();
+            }}
+          >
+            DELETE
+          </button>
+        </div>
+      </div>
+      <div></div>
+    </dialog>
+  );
+};
 
 interface PostEditorProps {
   mode: Mode;
