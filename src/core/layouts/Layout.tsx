@@ -196,7 +196,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   return (
     <>
       <Head>
-        <title>{title || "authentic-development-blitz"}</title>
+        <title>{title || "Authentic Development"}</title>
         <link rel="icon" href="/authentic-development-favicon.png" />
       </Head>
 
