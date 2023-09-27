@@ -17,7 +17,7 @@ const BlogPage: BlitzPage = () => {
 
 const BlogPageContent = () => {
   const router = useRouter();
-  const [posts] = useQuery(getPostsResolver, {});
+  const [posts] = useQuery(getPostsResolver, { published: true });
 
   const getPostImageSrc = (post: Pick<Post, "thumbnailUrl">) =>
     post.thumbnailUrl.replace("small", "medium");
