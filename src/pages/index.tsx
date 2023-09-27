@@ -119,10 +119,9 @@ const HeroSection = () => {
       <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
         <h1 className="text-5xl">Lets build an experience together</h1>
         <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
-          Hi, I&apos;m Elvis. As a former Founding Software Engineer at Onward and Kraftful, I now
-          dedicate my skills to developing agile and impactful Micro-SaaS solutions for startups.
-          Armed with valuable insights from my time at these companies, I&apos;m excited to help
-          bring your Micro-SaaS vision to life.
+          Hi, I&apos;m Elvis. With a background as a Founding Software Engineer at Techstars and Y
+          Combinator backed companies, I now devote my expertise to crafting nimble and influential
+          Micro-SaaS solutions for startups.
         </p>
 
         <div className="flex justify-center mt-[48px]">
