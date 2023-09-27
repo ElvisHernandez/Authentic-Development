@@ -68,5 +68,5 @@ const BlogPageContent = () => {
   );
 };
 
-BlogPage.getLayout = (page) => <Layout>{page}</Layout>;
+BlogPage.getLayout = (page) => <Layout title="Blog">{page}</Layout>;
 export default BlogPage;
