@@ -43,7 +43,7 @@ const SpecificBlogPageContent: BlitzPage = () => {
 
   return (
     <div className="py-[64px] bg-white min-h-screen">
-      <h1 className="text-4xl font-bold text-center mt-[144px]">
+      <h1 className="text-2xl sm:text-4xl font-bold text-center mt-[144px]">
         {title}: <br /> <span>{subtitle}</span>
       </h1>
       <div className="flex justify-center items-center my-[24px]">
@@ -65,11 +65,25 @@ const SpecificBlogPageContent: BlitzPage = () => {
           </p>
         </div>
       </div>
-      <section className="mx-[20%] my-[64px]">
+
+      {!!post?.thumbnailUrl && (
+        <div className="flex justify-center">
+          <Image
+            height={1000}
+            width={1000}
+            src={post.thumbnailUrl.replace("small", "large")}
+            alt={post.description}
+          />
+        </div>
+      )}
+
+      <div></div>
+
+      <section className="mx-[5%] sm:mx-[10%] lg:mx-[20%] my-[64px]">
         <Markdown value={post?.content ?? ""} />
       </section>
 
-      <section className="mx-[20%]">
+      <section className="mx-[5%] sm:mx-[10%] lg:mx-[20%]">
         <h2 className="font-bold text-xl text-center">Get a Free Consult</h2>
         <div className="divider my-0"></div>{" "}
         <p>

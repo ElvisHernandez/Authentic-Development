@@ -44,7 +44,7 @@ const BlogPageContent = () => {
               className="card h-[500px] w-[fit-content] rounded bg-slate-200 shadow-xl"
             >
               <figure>
-                <Image src={getPostImageSrc(post)} alt="Blog Image" />
+                <Image height={500} width={500} src={getPostImageSrc(post)} alt="Blog Image" />
               </figure>
               <div className="card-body max-w-[600px]">
                 <h3 className="card-title">{post.title}</h3>

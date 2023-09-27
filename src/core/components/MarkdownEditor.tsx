@@ -145,7 +145,7 @@ function UnmemoizedMarkdown(props: { value: string }) {
           };
 
           return (
-            <div className="flex justify-center">
+            <span className="inline-block flex justify-center">
               <Image
                 {...props}
                 src={props.src ?? ""}
@@ -155,7 +155,7 @@ function UnmemoizedMarkdown(props: { value: string }) {
                 width={getImageSize()}
                 className="rounded"
               />
-            </div>
+            </span>
           );
         },
       }}
