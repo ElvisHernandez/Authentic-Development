@@ -194,6 +194,9 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   title,
   children,
 }) => {
+  useEffect(() => {
+    console.log("In the Layout useEffect: ", process.env.NODE_ENV);
+  }, []);
   return (
     <>
       <Head>
