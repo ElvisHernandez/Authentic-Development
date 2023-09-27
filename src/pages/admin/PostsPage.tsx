@@ -320,12 +320,12 @@ function PostEditor(props: PostEditorProps) {
 
       <ImageModal modalRef={imageModalRef} imageInserter={imageInserter} />
       {isSuccess && (
-        <Alert alertVariant="alert-success" msg="Your inquiry was submitted successfully!" />
+        <Alert alertVariant="alert-success" msg="Your post was updated successfully!" />
       )}
       {isError && (
         <Alert
           alertVariant="alert-error"
-          msg="Apologies, inquiry failed to send. Please try again."
+          msg="Apologies, failed to update post. Please try again."
         />
       )}
     </>

@@ -6,7 +6,7 @@ const isSamePathName = (e: React.MouseEvent<HTMLAnchorElement>) => {
   return pathname === window.location.pathname;
 };
 
-export const smoothScroll = (elementId: string) => {
+export const smoothScroll = (elementId: string, scrollOffset: number) => {
   const targetElement = document.querySelector(`#${elementId}`);
 
   if (!targetElement) {
@@ -14,13 +14,14 @@ export const smoothScroll = (elementId: string) => {
     return;
   }
 
-  const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - 50;
+  const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - scrollOffset;
   window.scrollTo({ top: targetPosition, behavior: "smooth" });
 };
 
 export const handleLinkClickSmoothScroll = (
   e: React.MouseEvent<HTMLAnchorElement>,
-  elementId: string
+  elementId: string,
+  scrollOffset = 50
 ) => {
   e.preventDefault();
 
@@ -30,5 +31,5 @@ export const handleLinkClickSmoothScroll = (
     window.location.href = pathname === "/" ? `/#${elementId}` : `${pathname}/#${elementId}`;
   }
 
-  smoothScroll(elementId);
+  smoothScroll(elementId, scrollOffset);
 };

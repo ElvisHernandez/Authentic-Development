@@ -12,8 +12,7 @@ import { ThumbnailGrid } from "src/pages/admin/ImagesPage";
 import slugify from "slugify";
 import { handleLinkClickSmoothScroll } from "src/utils/smoothScroll";
 import React from "react";
-import { useMutation } from "@blitzjs/rpc";
-import updatePostResolver from "src/posts/mutations/updatePost";
+import Image from "next/image";
 
 export function ImageModal(props: {
   modalRef: React.RefObject<HTMLDialogElement>;
@@ -90,9 +89,10 @@ function UnmemoizedMarkdown(props: { value: string }) {
             <a
               {...props}
               className="underline"
+              target="_blank"
               onClick={(e) =>
                 isHashLink(props.href)
-                  ? handleLinkClickSmoothScroll(e, props.href?.slice(1) as string)
+                  ? handleLinkClickSmoothScroll(e, props.href?.slice(1) as string, 100)
                   : noop()
               }
             >
@@ -132,7 +132,31 @@ function UnmemoizedMarkdown(props: { value: string }) {
           );
         },
         img: ({ node, ...props }) => {
-          return <img {...props} className="rounded" />;
+          const isSmallImage = props.src?.includes("small");
+          const isMediumImage = props.src?.includes("medium");
+          const isLargeImage = props.src?.includes("large");
+
+          const getImageSize = (): number => {
+            if (isSmallImage) return 100;
+            if (isMediumImage) return 500;
+            if (isLargeImage) return 1000;
+
+            throw new Error(`image ${props.src} size not supported`);
+          };
+
+          return (
+            <div className="flex justify-center">
+              <Image
+                {...props}
+                src={props.src ?? ""}
+                alt={props.alt ?? ""}
+                placeholder="empty"
+                height={getImageSize()}
+                width={getImageSize()}
+                className="rounded"
+              />
+            </div>
+          );
         },
       }}
     >
@@ -156,8 +180,6 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
   const [cursorIndex, setCursorIndex] = useState(0);
   const modalRef = useRef<HTMLDialogElement>(null);
 
-  const [updatePostMutation] = useMutation(updatePostResolver);
-
   const embedImage = async (imageUrl: string) => {
     const { value, updateValue } = props;
     if (!value) return;
@@ -178,6 +200,12 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
       <ImageModal modalRef={modalRef} imageInserter={embedImage} />
 
       <div className="flex justify-end items-center bg-base-100 p-4 h-[5%] border-b-[1px] border-base-300 gap-x-2">
+        {!!props.handleSave && (
+          <MdSave
+            className={`cursor-pointer ${props.isLoading ? "opacity-50" : ""}`}
+            onClick={props.handleSave}
+          />
+        )}
         <MdImage className="cursor-pointer" onClick={() => modalRef.current?.showModal()} />
         <MdPreview className="cursor-pointer" onClick={() => setShowPreview(!showPreview)} />
         {!fullScreen && (
@@ -189,12 +217,6 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
             onClick={() => setFullScreen(false)}
           />
         )}
-        {!!props.handleSave && (
-          <MdSave
-            className={`cursor-pointer ${props.isLoading ? "opacity-50" : ""}`}
-            onClick={props.handleSave}
-          />
-        )}
       </div>
 
       <div className="relative h-[95%]">
@@ -202,7 +224,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
           placeholder="Content"
           className={`textarea textarea-bordered textarea-lg text-sm
           ${showPreview ? "w-1/2" : "w-full"} 
-          ${fullScreen ? "h-screen" : "h-[400px]"}
+          ${fullScreen ? "h-[100%]" : "h-[400px]"}
           rounded-none p-4 border-0 focus:outline-none`}
           onChange={(e) => props.updateValue(e.target.value)}
           onSelect={handleTextSelect}
@@ -214,7 +236,7 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
             className={`
             absolute top-0 right-0 border-l-[1px] border-base-300 
             bg-base-100 w-2/4 p-4 overflow-y-scroll
-            ${fullScreen ? "h-screen" : "h-[400px]"}`}
+            ${fullScreen ? "h-[100%]" : "h-[400px]"}`}
           >
             <Markdown value={props.value ?? ""} />
           </div>

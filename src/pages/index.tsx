@@ -41,7 +41,7 @@ const HeroSection = () => {
     const { hash } = window.location;
 
     if (hash) {
-      smoothScroll(hash.slice(1));
+      smoothScroll(hash.slice(1), 50);
     }
 
     const timer = setTimeout(() => setIsFirstRender(false), 1000);
