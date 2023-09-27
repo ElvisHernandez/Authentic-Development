@@ -194,31 +194,28 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
   title,
   children,
 }) => {
-  useEffect(() => {
-    console.log("In the Layout useEffect: ", process.env.NODE_ENV);
-  }, []);
   return (
     <>
       <Head>
         <title>{title || "Authentic Development"}</title>
         <link rel="icon" href="/authentic-development-favicon.png" />
-        {process.env.NODE_ENV === "production" && (
-          <>
-            <Script
-              strategy="afterInteractive"
-              src="https://www.googletagmanager.com/gtag/js?id=G-EV7XES0GQF"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
+      </Head>
+      {process.env.NODE_ENV === "production" && (
+        <>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-EV7XES0GQF"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
                   gtag('config', 'G-EV7XES0GQF');
             `}
-            </Script>
-          </>
-        )}
-      </Head>
+          </Script>
+        </>
+      )}
 
       <Navbar />
       {children}
