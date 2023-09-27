@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { BlitzLayout, Routes } from "@blitzjs/next";
 import Link from "next/link";
 import { handleLinkClickSmoothScroll } from "src/utils/smoothScroll";
+import Script from "next/script";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -198,6 +199,22 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
       <Head>
         <title>{title || "Authentic Development"}</title>
         <link rel="icon" href="/authentic-development-favicon.png" />
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src="https://www.googletagmanager.com/gtag/js?id=G-EV7XES0GQF"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-EV7XES0GQF');
+            `}
+            </Script>
+          </>
+        )}
       </Head>
 
       <Navbar />
