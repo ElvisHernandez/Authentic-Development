@@ -65,7 +65,6 @@ function UnmemoizedMarkdown(props: { value: string }) {
           </>
         ),
         h2: ({ node, ...props }) => {
-          console.log("In the h2 thing: ", props.children);
           return (
             <>
               <h2
