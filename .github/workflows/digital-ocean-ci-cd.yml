@@ -37,11 +37,11 @@ jobs:
       - name: Build
         run: npm run build # your build script
 
-      - name: Install production packages
-        run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
+      # - name: Install production packages
+      #   run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
 
-      - name: Run Production Migrations
-        run: npx prisma generate && npx prisma migrate deploy
+      # - name: Run Production Migrations
+      #   run: npx prisma generate && npx prisma migrate deploy
 
       - name: Deploy to VPS
         uses: appleboy/scp-action@master
@@ -49,5 +49,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ".next/,db/,node_modules/,package.json" # or the directory where your JS files are
+          source: ".next/standalone/,db/" # or the directory where your JS files are
           target: ${{ secrets.TARGET }}
