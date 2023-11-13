@@ -37,11 +37,14 @@ jobs:
       - name: Build
         run: npm run build # your build script
 
+      - name: Install production packages
+        run: rm -rf node_modules && npm i -f --omit=dev
+
       - name: Deploy to VPS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ".next/,db,package.json" # or the directory where your JS files are
+          source: ".next/,db/,node_modules/,package.json" # or the directory where your JS files are
           target: ${{ secrets.TARGET }}
