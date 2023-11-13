@@ -69,4 +69,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: pm2 restart blitz
+          script: /home/elvis/.nvm/versions/node/v18.18.2/bin/pm2 restart blitz
