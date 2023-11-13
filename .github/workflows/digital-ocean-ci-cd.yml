@@ -40,5 +40,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "dist/*" # or the directory where your JS files are
+          source: "./" # or the directory where your JS files are
           target: ${{ secrets.TARGET }}
+          exclude: "node_modules/"
