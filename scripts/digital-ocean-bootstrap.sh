@@ -3,7 +3,7 @@
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash;
 nvm install 18;
 
-npm i -g blitz
+npm i -g blitz pm2
 
 adduser elvis
 usermod -aG sudo elvis
@@ -16,5 +16,7 @@ sudo apt install certbot python3-certbot-nginx
 # and https traffic on port 443
 sudo certbot --nginx -d authenticdevelopment.net
 
+# has to be in app directory
+pm2 start "npm run start" --name "blitz"
 # sudo certbot certonly --standalone -d authenticdevelopment.net
 
