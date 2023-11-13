@@ -31,6 +31,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Run Migrations
+        run: npx prisma migrate deploy
+
       - name: Build
         run: npm run build # your build script
 
@@ -40,6 +43,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./" # or the directory where your JS files are
+          source: "./,!node_modules/" # or the directory where your JS files are
           target: ${{ secrets.TARGET }}
           exclude: "node_modules/"
