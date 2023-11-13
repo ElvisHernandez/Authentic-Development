@@ -40,6 +40,9 @@ jobs:
       - name: Install production packages
         run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
 
+      - name: Run Production Migrations
+        run: npx prisma generate && npx prisma migrate deploy
+
       - name: Deploy to VPS
         uses: appleboy/scp-action@master
         with:
