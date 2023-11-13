@@ -37,11 +37,22 @@ jobs:
       - name: Build
         run: npm run build # your build script
 
-      # - name: Install production packages
-      #   run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
+      - name: Install Production Packages
+        run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
 
-      # - name: Run Production Migrations
-      #   run: npx prisma generate && npx prisma migrate deploy
+      - name: Run Production Migrations
+        run: npx prisma generate && npx prisma migrate deploy
+
+      - name: Create .env File
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "SESSION_SECRET_KEY=${{ secrets.SESSION_SECRET_KEY }}" >> .env
+          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> .env
+          echo "AWS_S3_IMAGE_HOST=${{ secrets.AWS_S3_IMAGE_HOST }}" >> .env
+          echo "AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }}" >> .env
+          echo "AWS_KEY_ID=${{ secrets.AWS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" >> .env
+          echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
 
       - name: Deploy to VPS
         uses: appleboy/scp-action@master
@@ -49,5 +60,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ".next/standalone/,db/" # or the directory where your JS files are
+          source: ".next/,db/,node_modules/,package.json,.env" # or the directory where your JS files are
           target: ${{ secrets.TARGET }}
