@@ -2,8 +2,6 @@
 const { withBlitz } = require("@blitzjs/next");
 const { withSentryConfig } = require("@sentry/nextjs");
 
-console.log(process.env);
-
 if (!process.env.AWS_S3_IMAGE_HOST) {
   throw new Error("AWS_S3_IMAGE_HOST must be defined");
 }
