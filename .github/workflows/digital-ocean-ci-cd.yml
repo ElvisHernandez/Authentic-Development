@@ -38,7 +38,7 @@ jobs:
         run: npm run build # your build script
 
       - name: Install production packages
-        run: rm -rf node_modules && npm i -f --omit=dev
+        run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
 
       - name: Deploy to VPS
         uses: appleboy/scp-action@master
