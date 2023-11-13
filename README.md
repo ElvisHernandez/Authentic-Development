@@ -11,6 +11,15 @@
     - [X] Add some arrows to modal for easier switching of process sections
 
 - [ ] Write intro first blog
-    - [ ] Pick topic
-        - [ ] Why Micro-SaaS?
+    - [X] Pick topic
+        - [X] Why Micro-SaaS?
         ???
+
+
+## Todos - 09/26/23
+- [ ] Finish first blog article
+- [ ] Update social media links on website
+    - [ ] Make Authentic Development LinkedIn
+    - [ ] Make Authentic Development Twitter
+    - [ ] Make Authentic Development YouTube????
+- [ ] Release first blog article??
