@@ -43,6 +43,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./,!node_modules/" # or the directory where your JS files are
+          source: ".next/standalone,db" # or the directory where your JS files are
           target: ${{ secrets.TARGET }}
-          exclude: "node_modules/"
