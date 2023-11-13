@@ -1,6 +1,7 @@
 // @ts-check
 const { withBlitz } = require("@blitzjs/next");
 const { withSentryConfig } = require("@sentry/nextjs");
+const path = require("path");
 
 if (!process.env.AWS_S3_IMAGE_HOST) {
   throw new Error("AWS_S3_IMAGE_HOST must be defined");
@@ -10,7 +11,6 @@ if (!process.env.AWS_S3_IMAGE_HOST) {
  * @type {import('@blitzjs/next').BlitzConfig}
  **/
 const config = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
