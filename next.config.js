@@ -1,7 +1,6 @@
 // @ts-check
 const { withBlitz } = require("@blitzjs/next");
 const { withSentryConfig } = require("@sentry/nextjs");
-const path = require("path");
 
 if (!process.env.AWS_S3_IMAGE_HOST) {
   throw new Error("AWS_S3_IMAGE_HOST must be defined");
@@ -12,10 +11,11 @@ if (!process.env.AWS_S3_IMAGE_HOST) {
  **/
 const config = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "authentic-development-blog-images.s3.amazonaws.com",
+        hostname: process.env.AWS_S3_IMAGE_HOST,
         port: "",
         pathname: "/**",
       },
