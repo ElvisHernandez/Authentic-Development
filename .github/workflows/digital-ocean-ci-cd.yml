@@ -73,4 +73,4 @@ jobs:
             echo $PATH
             source /home/elvis/.bashrc
             cd ${{ secrets.TARGET }}
-            /home/elvis/.nvm/versions/node/v18.18.2/bin/pm2 restart blitz
+            /home/elvis/.nvm/versions/node/v18.18.2/bin/node /home/elvis/.nvm/versions/node/v18.18.2/bin/pm2 restart blitz
