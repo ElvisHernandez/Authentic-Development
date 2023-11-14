@@ -11,7 +11,6 @@ if (!process.env.AWS_S3_IMAGE_HOST) {
  **/
 const config = {
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
