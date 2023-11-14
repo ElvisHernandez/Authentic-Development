@@ -12,11 +12,10 @@ if (!process.env.AWS_S3_IMAGE_HOST) {
  **/
 const config = {
   images: {
-    domains: ["authentic-development-blog-images.s3.amazonaws.com"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: process.env.AWS_S3_IMAGE_HOST,
+        hostname: "authentic-development-blog-images.s3.amazonaws.com",
         port: "",
         pathname: "/**",
       },
