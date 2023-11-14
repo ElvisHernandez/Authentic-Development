@@ -20,3 +20,5 @@ sudo certbot --nginx -d authenticdevelopment.net
 pm2 start "npm run start" --name "blitz"
 # sudo certbot certonly --standalone -d authenticdevelopment.net
 
+apt-get update;
+apt-get install -y awscli;

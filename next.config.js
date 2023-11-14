@@ -11,7 +11,6 @@ if (!process.env.AWS_S3_IMAGE_HOST) {
  * @type {import('@blitzjs/next').BlitzConfig}
  **/
 const config = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
