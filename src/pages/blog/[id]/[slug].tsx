@@ -49,11 +49,19 @@ const SpecificBlogPageContent: BlitzPage = () => {
       <div className="flex justify-center items-center my-[24px]">
         <div className="avatar mr-[12px]">
           <div className="w-12 rounded-full">
-            <Image
+            {/* <Image
               alt="Author Elvis Hernandez"
               src="https://authentic-development-blog-images.s3.amazonaws.com/small-1695691281238-me.jpeg"
               width={50}
               height={50}
+            /> */}
+            <img
+              alt="Author Elvis Hernandez"
+              src="https://authentic-development-blog-images.s3.amazonaws.com/small-1695691281238-me.jpeg"
+              style={{
+                width: "50ox",
+                height: "50px",
+              }}
             />
           </div>
         </div>{" "}
