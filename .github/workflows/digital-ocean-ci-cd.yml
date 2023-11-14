@@ -30,16 +30,16 @@ jobs:
           node-version: "18" # specify your Node.js version
 
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
 
       - name: Run Migrations
         run: npx prisma generate && npx prisma migrate deploy
 
       - name: Build
-        run: npm run build # your build script
+        run: yarn build # your build script
 
       - name: Install Production Packages
-        run: rm -rf node_modules && npm i -f --omit=dev --ignore-scripts
+        run: rm -rf node_modules && yarn install --prod --ignore-scripts
 
       - name: Run Production Migrations
         run: npx prisma generate && npx prisma migrate deploy
