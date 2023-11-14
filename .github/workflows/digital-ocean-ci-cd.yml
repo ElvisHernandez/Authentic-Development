@@ -69,4 +69,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: bash -l -c "cd ${{ secrets.TARGET }} && pm2 restart blitz"
+          script: |
+            export NVM_DIR="/home/elvis/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 18.18.2
+            cd ${{ secrets.TARGET }}
+            pm2 restart blitz
