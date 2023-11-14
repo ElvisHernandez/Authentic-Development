@@ -13,8 +13,6 @@ const CreateInquirySchema = z.object({
 export default resolver.pipe(resolver.zod(CreateInquirySchema), async (inquiry) => {
   const mailClient = MailClient.getSingleton();
 
-  throw new Error("This is a test error");
-
   await db.inquiry.create({ data: inquiry });
   await mailClient.send({
     to: "elvis@authenticdevelopment.net",
