@@ -70,6 +70,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo $USER
+            source /home/elvis/.bashrc
             cd ${{ secrets.TARGET }}
-            /home/elvis/.nvm/versions/node/v18.18.2/bin/pm2 restart blitz
+            pm2 restart blitz
