@@ -14,6 +14,7 @@ env:
   AWS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
   AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
   SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
 jobs:
   build-and-deploy:
@@ -53,6 +54,7 @@ jobs:
           echo "AWS_KEY_ID=${{ secrets.AWS_KEY_ID }}" >> .env
           echo "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" >> .env
           echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> .env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
 
       - name: Deploy to VPS
         uses: appleboy/scp-action@master
@@ -60,7 +62,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ".next/,db/,node_modules/,package.json,.env,.sentryclirc" # or the directory where your JS files are
+          source: ".next/,db/migrations/,db/schema.prisma,node_modules/,package.json,.env"
           target: ${{ secrets.TARGET }}
 
       - name: Restart Application with PM2
@@ -74,4 +76,5 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use 18.18.2
             cd ${{ secrets.TARGET }}
+            npx prisma migrate deploy
             pm2 restart blitz
