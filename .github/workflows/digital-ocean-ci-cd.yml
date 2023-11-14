@@ -38,11 +38,11 @@ jobs:
       - name: Build
         run: yarn build # your build script
 
-      # - name: Install Production Packages
-      #   run: rm -rf node_modules && yarn install --prod --ignore-scripts
+      - name: Install Production Packages
+        run: rm -rf node_modules && yarn install --prod --ignore-scripts
 
-      # - name: Run Production Migrations
-      #   run: npx prisma generate && npx prisma migrate deploy
+      - name: Run Production Migrations
+        run: npx prisma generate && npx prisma migrate deploy
 
       - name: Create .env File
         run: |
