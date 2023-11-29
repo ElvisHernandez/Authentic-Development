@@ -12,7 +12,7 @@
     "prepare": "husky install",
     "db": "sqlite3 db/db.sqlite --column --header",
     "migrate:dev": "npx blitz prisma migrate dev",
-    "ssh": "ssh -i ./private/ec2_private_key.pem ubuntu@$(terraform -chdir=$PWD/terraform output -no-color public_ip | tr -d '\"')"
+    "ssh": "ssh -i ./private/do_droplet_key elvis@$(terraform -chdir=$PWD/terraform output -no-color droplet_ip | tr -d '\"')"
   },
   "prisma": {
     "schema": "db/schema.prisma"
