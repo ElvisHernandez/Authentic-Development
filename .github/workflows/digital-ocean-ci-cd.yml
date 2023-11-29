@@ -39,9 +39,6 @@ jobs:
       - name: Build
         run: yarn build # your build script
 
-      - name: Install Production Packages
-        run: rm -rf node_modules && yarn install --prod --ignore-scripts
-
       - name: Run Production Migrations
         run: npx prisma generate && npx prisma migrate deploy
 
