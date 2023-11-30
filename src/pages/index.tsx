@@ -3,14 +3,11 @@ import { useMutation, useQuery } from "@blitzjs/rpc";
 import { BlitzPage, Routes } from "@blitzjs/next";
 import * as Sentry from "@sentry/nextjs";
 import {
-  MdEngineering,
-  MdDesignServices,
-  MdDataThresholding,
-  MdOutlineIntegrationInstructions,
   MdComputer,
-  MdPrivateConnectivity,
   MdArrowCircleLeft,
   MdArrowCircleRight,
+  MdOutlineCode,
+  MdCloudQueue,
 } from "react-icons/md";
 
 import Layout from "src/core/layouts/Layout";
@@ -21,6 +18,7 @@ import Link from "next/link";
 import { handleLinkClickSmoothScroll, smoothScroll } from "src/utils/smoothScroll";
 import createInquiryResolver from "src/inquiry/mutations/createInquiry";
 import { Alert } from "src/core/components/Alert";
+import styles from "../styles/Home.module.css";
 
 const SectionHeader = (props: { sectionName: string }) => (
   <div className="flex py-[48px]">
@@ -32,7 +30,9 @@ const SectionHeader = (props: { sectionName: string }) => (
   </div>
 );
 
-const SectionTextContainer = ({ children }) => <div className="mx-[48px]">{children}</div>;
+const SectionTextContainer = ({ children }) => (
+  <div className=" mx-[64px] xl:mx-[128px] 2xl:mx-[256px]">{children}</div>
+);
 
 const HeroSection = () => {
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -117,27 +117,19 @@ const HeroSection = () => {
       </div>
 
       <div className="px-[24px] md:pl-[48px] pt-[200px] sm:pt-[300px] text-white w-[fit-content]">
-        <h1 className="text-5xl">Lets build an experience together</h1>
+        <h1 className="text-5xl">Hi, my name is Elvis</h1>
         <p className="pt-[24px] text-white md:max-w-[70vw] lg:max-w-[55vw]">
-          Hi, I&apos;m Elvis. With a background as a Founding Software Engineer at Techstars and Y
-          Combinator backed companies, I now devote my expertise to crafting nimble and influential
-          Micro-SaaS solutions for startups.
+          As a software developer, I&apos;m passionate about crafting tools that enhance user
+          productivity. Additionally, I enjoy writing about technology, focusing on ways it can
+          empower developers to produce superior products and deepen their knowledge.
         </p>
 
         <div className="flex justify-center mt-[48px]">
           <Link
-            href={`/#contact`}
-            className="btn btn-outline btn-accent normal-case w-[140px] mr-[24px]"
-            onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}
+            href={Routes.BlogPage()}
+            className="btn btn-outline btn-accent normal-case w-[220px] mr-[24px]"
           >
-            Free Consult
-          </Link>
-          <Link
-            href={`/#services`}
-            className="btn btn-outline btn-info normal-case w-[140px]"
-            onClick={(e) => handleLinkClickSmoothScroll(e, "services")}
-          >
-            Services
+            Join My Tech Journey
           </Link>
         </div>
       </div>
@@ -150,19 +142,30 @@ const AboutSection = () => (
     <SectionHeader sectionName="About" />
     <SectionTextContainer>
       <p>
-        Hi, I&apos;m Elvis, and I specialize in turning your big ideas into reality through custom
-        software. With a strong foundation in science and engineering, I&apos;ve been at the ground
-        floor of start-ups and have helped grow companies by providing them with the tools they need
-        to succeed. My passion lies in understanding your business goals and transforming them into
-        easy-to-use software solutions that not only work seamlessly but also drive revenue and
-        efficiency.
+        Hi there! My journey has recently led me to a startup as a founding software engineer.
+        There, I delved into the complexities of Large Language Models, contributing to a successful
+        launch that attracted a notable number of users. One of my key contributions was designing
+        an algorithm that significantly improved data processing speeds.
       </p>
+
       <p className="mt-[24px]">
-        I have a diverse set of skills that can help your business grow and stay competitive.
-        Whether you&apos;re looking to provide your customers with a standout digital experience or
-        you&apos;re in need of behind-the-scenes systems that make your business run smoothly,
-        I&apos;ve got the experience to deliver. Let&apos;s talk about how I can help bring your
-        vision to life.
+        Before this role, I was part of a small team at a delivery-focused company. We began with a
+        simple MVP and grew the business into a more established enterprise. My work involved
+        developing APIs and data pipelines, which played a crucial role in enhancing our product
+        offerings and securing new business deals.
+      </p>
+
+      <p className="mt-[24px]">
+        Earlier in my career, I worked at a tech firm in Miami, where I focused on improving a
+        Python-Flask application used by a large user base. My tasks included optimizing database
+        performance and implementing more efficient testing and deployment processes.
+      </p>
+
+      <p className="mt-[24px]">
+        Throughout my career, I&apos;ve embraced various roles, each offering unique challenges and
+        opportunities to innovate. From coding to problem-solving, my journey has been about
+        constantly learning and applying new skills to develop effective software solutions. And
+        I&apos;m excited to see where this path will lead next!
       </p>
     </SectionTextContainer>
     <div className="flex justify-center pt-[48px]">
@@ -171,198 +174,126 @@ const AboutSection = () => (
   </section>
 );
 
-const ServicesSection = () => (
+const SkillsSection = () => (
   <section id="services">
-    <SectionHeader sectionName="Services" />
+    <SectionHeader sectionName="Skills" />
     <SectionTextContainer>
       <p>
-        You&apos;ve got the vision; we&apos;ve got the expertise to bring it to life. Whether
-        you&apos;re starting from scratch or need to optimize your existing platform, we offer
-        comprehensive solutions that cater specifically to Micro-SaaS businesses.
+        My technical skill set encompasses a comprehensive range in software development. I am
+        proficient in Typescript and Javascript, with expertise in frameworks like NodeJS,
+        ExpressJS, and front-end libraries such as ReactJS, React Native, NextJS, and BlitzJS.
+      </p>
+
+      <p className="mt-[24px]">
+        My abilities also extend to HTML5/CSS for web design, Python with Flask, and Ruby on Rails
+        for robust backend development. In database management, I am experienced with SQL,
+        PostgreSQL, and NoSQL. My cloud computing skills include deploying and managing applications
+        on AWS, GCP, and Firebase.
+      </p>
+
+      <p className="mt-[24px]">
+        Additionally, I am proficient in Linux and Git for operating system and version control,
+        Docker and Terraform for containerization and infrastructure management, and have experience
+        with advanced technologies like GPT (Large Language Model) and BullMQ for job queuing.
       </p>
     </SectionTextContainer>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 px-[48px] pt-[48px]">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-16 px-[48px] pt-[48px]">
       <div className="text-center">
-        <MdEngineering className="h-[64px] w-[64px] mx-auto my-[12px]" />
-        <div className="font-medium mb-[12px]">End-to-End Development</div>
+        <MdOutlineCode className="h-[64px] w-[64px] mx-auto my-[12px]" />
+
+        <div className="font-medium mb-[12px]">Full-Stack Development</div>
+
         <p className="text-sm">
-          Why piece together multiple specialists when you can get it all done in one place? We
-          handle everything from initial sketches to the launch of your Micro-SaaS product. We even
-          ensure it runs smoothly after the big day.
+          <span className="font-semibold">Backend-End</span>: NodeJS, ExpressJS, Flask, Ruby on
+          Rails
+        </p>
+
+        <p className="text-sm">
+          <span className="font-semibold">Front-End</span>: ReactJS, React Native, NextJS, BlitzJS,
+          HTML5/CSS
+        </p>
+
+        <p className="text-sm">
+          <span className="font-semibold">Programming Languages</span>: Typescript, Javascript,
+          Python, Ruby
         </p>
       </div>
 
       <div className="text-center">
-        <MdDesignServices className="h-[64px] w-[64px] mx-auto my-[12px]" />
-        <div className="font-medium mb-[12px]">User-Friendly Interfaces</div>
-        <p className="text-sm">
-          A great idea deserves a sleek and intuitive design. With your customer in mind, we create
-          engaging user experiences that not only look good but are easy to navigate.
-        </p>
-      </div>
+        <MdCloudQueue className="h-[64px] w-[64px] mx-auto my-[12px]" />
 
-      <div className="text-center">
-        <MdDataThresholding className="h-[64px] w-[64px] mx-auto my-[12px]" />
-        <div className="font-medium mb-[12px]">Data Optimization</div>
+        <div className="font-medium mb-[12px]">Cloud and DevOps</div>
         <p className="text-sm">
-          We implement smart data solutions that make your service faster and more reliable.
-          Understand your business better through key performance indicators and analytics that we
-          integrate seamlessly into your platform.
+          <span className="font-semibold">Cloud Services</span>: AWS, GCP, Firebase
         </p>
-      </div>
 
-      <div className="text-center">
-        <MdOutlineIntegrationInstructions className="h-[64px] w-[64px] mx-auto my-[12px]" />
-        <div className="font-medium mb-[12px]">Seamless Third-Party Integrations</div>
         <p className="text-sm">
-          Need to link up with other software or platforms? We&apos;ve got you covered. Our
-          expertise allows for smooth integrations that extend your service&apos;s capabilities.
+          <span className="font-semibold">Infrastructure Management</span>: Docker, Terraform
         </p>
-      </div>
 
-      <div className="text-center">
-        <MdPrivateConnectivity className="h-[64px] w-[64px] mx-auto my-[12px]" />
-        <div className="font-medium mb-[12px]">Secure & Scalable</div>
         <p className="text-sm">
-          As your business grows, your platform should too. We build with scalability in mind,
-          ensuring that you can easily add features or users as needed. Rest easy knowing your data
-          and your users&apos; data are well-protected.
+          <span className="font-semibold">Version Control and Operating System</span>: Git, Linux
         </p>
       </div>
 
       <div className="text-center">
         <MdComputer className="h-[64px] w-[64px] mx-auto my-[12px]" />
-        <div className="font-medium mb-[12px]">24/7 Support & Maintenance</div>
+
+        <div className="font-medium mb-[12px]">Data Management and Integration</div>
         <p className="text-sm">
-          We don&apos;t just disappear after launch. Our ongoing support and maintenance services
-          ensure your Micro-SaaS business continues to run smoothly, allowing you to focus on what
-          you do best—running your business.
+          <span className="font-semibold">Database Technologies</span>: SQL (PostgreSQL, NoSQL)
+        </p>
+
+        <p className="text-sm">
+          <span className="font-semibold">Queue Management</span>: BullMQ, Google Cloud Tasks
+        </p>
+
+        <p className="text-sm">
+          <span className="font-semibold">Artificial Intelligence</span>: GPT (Large Language Model)
         </p>
       </div>
     </div>
   </section>
 );
 
-const ProcessSection = () => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+type Project = {
+  index: number;
+  name: string;
+  description: string;
+  imgSrc: string;
+  productionUrl: string;
+  codeUrl: string;
+};
+
+const projects: Project[] = [
+  {
+    index: 0,
+    name: "Cover Letter Generator",
+    description:
+      "This is a Chrome Extension designed to generate cover letters, developed using Typescript and the Plasmo framework. It leverages the Chat GPT API to analyze resumes and job descriptions, subsequently creating tailored cover letters.",
+    imgSrc: "/cover-letter-generator.png",
+    productionUrl:
+      "https://chromewebstore.google.com/detail/cover-letter-generator/inldinjjkpclfafpbpofehahkacnaegd",
+    codeUrl: "https://github.com/ElvisHernandez/Cover-Letter-Generator",
+  },
+  {
+    index: 1,
+    name: "Authentic Development Blog",
+    description:
+      "You are currently visiting my blog and portfolio website. This site has been developed using BlitzJS and deployed on Digital Ocean with the help of Terraform. Additionally, it features continuous integration and continuous deployment (CI/CD) through Github Actions.",
+    imgSrc: "/authentic-development-blog.png",
+    productionUrl: "/",
+    codeUrl: "https://github.com/ElvisHernandez/Authentic-Development",
+  },
+];
+
+const ProjectsSection = () => {
+  const [currentProject, setCurrentProject] = useState(projects[0] as Project);
   const modalRef = useRef<HTMLDialogElement>(null);
-  const processSteps = [
-    {
-      name: "Discovery & Planning",
-      content: (
-        <ol className="p-8">
-          <li>
-            <span className="font-semibold text-primary">Initial Consultation</span>: Discuss the
-            client&apos;s vision, target audience, unique value proposition, and any existing
-            resources or requirements.
-          </li>
-          <li className="py-8">
-            <span className="font-semibold text-primary">Scope & Proposal</span>: Present a project
-            proposal including a timeline, cost estimates, and a list of deliverables.
-          </li>
-          <li>
-            <span className="font-semibold text-primary">Contract Signing</span>: Finalize the
-            agreement outlining the scope of work, payment terms, and other legalities.
-          </li>
-        </ol>
-      ),
-    },
-    {
-      name: "Design & Prototyping",
-      content: (
-        <ol className="p-8">
-          <li>
-            <span className="font-semibold text-primary">User Experience (UX) Design</span>: Work on
-            sketches or wireframes that focus on creating a user-friendly interface.
-          </li>
-          <li className="py-8">
-            <span className="font-semibold text-primary">User Interface (UI) Design</span>: Once the
-            UX is approved, proceed to finalize the visual elements like color schemes, typography,
-            and other design components.
-          </li>
-          <li>
-            <span className="font-semibold text-primary">Prototype Testing</span>: Validate the
-            design with a clickable prototype and make iterations based on client and user feedback.
-          </li>
-        </ol>
-      ),
-    },
-    {
-      name: "Development",
-      content: (
-        <ol className="p-8">
-          <li>
-            <span className="font-semibold text-primary">Backend & Frontend Development</span>:
-            Start the coding process, incorporating best practices for scalability and security.
-          </li>
-          <li className="py-8">
-            <span className="font-semibold text-primary">Data Optimization</span>: Integrate data
-            analytics tools and KPI (Key Performance Indicator) dashboards as part of the backend.
-          </li>
-          <li>
-            <span className="font-semibold text-primary">Third-Party Integrations</span>:
-            Incorporate necessary third-party services like payment gateways, social media logins,
-            or any other external APIs.
-          </li>
-        </ol>
-      ),
-    },
-    {
-      name: "Quality Assurance",
-      content: (
-        <ol className="p-8">
-          <li>
-            <span className="font-semibold text-primary">Testing</span>: Rigorous testing to catch
-            bugs, security loopholes, and any usability concerns.
-          </li>
-          <li className="py-8">
-            <span className="font-semibold text-primary">Client Review</span>: Allow the client to
-            review and approve the work before moving to the launch phase.
-          </li>
-        </ol>
-      ),
-    },
-    {
-      name: "Launch",
-      content: (
-        <ol className="p-8">
-          <li>
-            <span className="font-semibold text-primary">Deployment</span>: Make the Micro-SaaS
-            product live after final approval from the client.
-          </li>
-          <li className="py-8">
-            <span className="font-semibold text-primary">Monitoring</span>: Closely watch the
-            platform for any issues and to ensure everything is operating as intended.
-          </li>
-        </ol>
-      ),
-    },
-    {
-      name: "Post-Launch",
-      content: (
-        <ol className="p-8">
-          <li>
-            <span className="font-semibold text-primary">24/7 Support & Maintenance</span>: Ongoing
-            monitoring, updates, and customer support.
-          </li>
-          <li className="py-8">
-            <span className="font-semibold text-primary">Performance Analytics</span>: Regularly
-            update the client with performance metrics, helping them understand how the platform is
-            being used and how it can be improved.
-          </li>
-          <li>
-            <span className="font-semibold text-primary">Iterative Improvements</span>: Continuously
-            work with the client for any new features or improvements based on analytics and user
-            feedback.
-          </li>
-        </ol>
-      ),
-    },
-  ];
 
   const getVerticalTimelineStyle = (index) => {
     const isFirstStep = index === 0;
-    const isLastStep = index === processSteps.length - 1;
+    const isLastStep = index === projects.length - 1;
     if (!isFirstStep && !isLastStep)
       return {
         background:
@@ -376,38 +307,48 @@ const ProcessSection = () => {
     };
   };
 
-  const isFirstStep = () => currentStepIndex === 0;
-  const isLastStep = () => currentStepIndex === processSteps.length - 1;
+  const isFirstStep = () => currentProject.name === (projects[0] as Project).name;
+  const isLastStep = () => currentProject.name === (projects[projects.length - 1] as Project).name;
+
+  const setPrevProject = () => {
+    setCurrentProject(projects[currentProject.index - 1] as Project);
+  };
+
+  const setNextProject = () => {
+    setCurrentProject(projects[currentProject.index + 1] as Project);
+  };
 
   return (
     <section id="process">
-      <SectionHeader sectionName="Process" />
+      <SectionHeader sectionName="Projects" />
       <SectionTextContainer>
         <p>
-          Transforming a concept into a successful product is no small feat—it&apos;s a journey. And
-          like any journey, it&apos;s easier with a map. That&apos;s why we&apos;ve broken down our
-          approach into key phases designed to tackle your unique challenges.
+          This section features projects that I have developed in my spare time, highlighting my
+          skills and interests beyond my professional commitments.
         </p>
       </SectionTextContainer>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 pt-[48px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 pt-[48px]">
         <div className="flex flex-col justify-center items-center">
-          {processSteps.map((processStep, i) => (
-            <div key={processStep.name} className="flex flex-row items-center relative">
+          {projects.map((project, i) => (
+            <div key={project.name} className="flex flex-row items-center relative">
               <div className="mx-[12px] h-[64px] w-[168px] text-center flex justify-center items-center font-medium">
-                {processStep.name}
+                {project.name}
               </div>
               <div
                 className={`
                 h-8 w-8 rounded-full bg-black border-primary  flex z-10
                 justify-center items-center text-sm font-semibold cursor-pointer
-                ${i === currentStepIndex ? "text-primary" : "text-white"} 
-                ${i === currentStepIndex ? "border-2" : "border-0"}
+                ${
+                  project.name === currentProject.name
+                    ? "text-primary border-2"
+                    : "text-white border-0"
+                } 
               `}
                 onClick={() => {
-                  // 640px is the cutoff for tailwind sm breakpoint
-                  setCurrentStepIndex(i);
-                  if (window.innerWidth < 640) {
+                  // 768px is the cutoff for tailwind md breakpoint
+                  setCurrentProject(project);
+                  if (window.innerWidth < 768) {
                     modalRef.current?.showModal();
                   }
                 }}
@@ -422,31 +363,68 @@ const ProcessSection = () => {
           ))}
         </div>
 
-        <div className="bg-base-100 rounded-lg text-white text-base font-normal hidden sm:block">
-          {processSteps[currentStepIndex]?.content}
+        <div className={`${styles.projectCard} hidden md:block`}>
+          <Image src={currentProject.imgSrc} alt="" fill />
+
+          <div className="flex flex-col items-center justify-center relative h-full z-10 text-white mx-[32px] xl:mx-[128px] text-sm lg:text-base">
+            <p>{currentProject.description}</p>
+
+            <div className="flex flex-col lg:flex-row justify-center mt-[16px]">
+              <Link
+                href={currentProject.productionUrl}
+                target="_blank"
+                className="btn btn-outline btn-accent normal-case w-[140px] lg:mr-[16px]"
+              >
+                View App
+              </Link>
+              <Link
+                href={currentProject.codeUrl}
+                target="_blank"
+                className="btn btn-outline btn-info normal-case w-[140px] mt-[16px] lg:mt-[0px]"
+              >
+                View Code
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
-      <dialog ref={modalRef} className="modal fixed sm:hidden">
+      <dialog ref={modalRef} className="modal fixed md:hidden">
         <div className="modal-box">
           <div className="flex justify-between mx-[12px]">
             <MdArrowCircleLeft
               className={`text-white transform scale-[2] ${isFirstStep() ? "opacity-50" : ""}`}
-              onClick={() => !isFirstStep() && setCurrentStepIndex((prev) => prev - 1)}
+              onClick={() => !isFirstStep() && setPrevProject()}
             />
             <h3 className="text-white font-semibold">
-              {processSteps[currentStepIndex]?.name}{" "}
+              {currentProject.name}{" "}
               <span className="font-normal">
-                ({currentStepIndex + 1}/{processSteps.length})
+                ({currentProject.index + 1}/{projects.length})
               </span>
             </h3>
             <MdArrowCircleRight
               className={`text-white transform scale-[2] ${isLastStep() ? "opacity-50" : ""}`}
-              onClick={() => !isLastStep() && setCurrentStepIndex((prev) => prev + 1)}
+              onClick={() => !isLastStep() && setNextProject()}
             />
           </div>
-          <div className="text-white text-sm font-normal">
-            {processSteps[currentStepIndex]?.content}
+          <div className="text-white text-sm font-normal mt-[16px]">
+            {currentProject.description}
+          </div>
+          <div className="flex justify-center mt-[16px]">
+            <Link
+              href={currentProject.productionUrl}
+              target="_blank"
+              className="btn btn-outline btn-accent normal-case w-[140px] mr-[16px]"
+            >
+              View App
+            </Link>
+            <Link
+              href={currentProject.codeUrl}
+              target="_blank"
+              className="btn btn-outline btn-info normal-case w-[140px]"
+            >
+              View Code
+            </Link>
           </div>
           <div className="modal-action">
             <form method="dialog">
@@ -514,7 +492,7 @@ const ContactSection = () => {
       name: details.name,
       email: details.email,
       inquiryDetails: details.inquiryDetails,
-      projectType: newProject ? "New project" : "Existing project",
+      projectType: "",
     });
   };
 
@@ -523,9 +501,9 @@ const ContactSection = () => {
       <SectionHeader sectionName="Contact" />
       <SectionTextContainer>
         <p className="pb-[48px]">
-          Looking to launch a groundbreaking Micro-SaaS solution, or eager to elevate an existing
-          product to new heights? Reach out through the form below, and you&apos;ll receive a
-          personalized response from me within one to two business days.
+          If you&apos;re interested in suggesting a topic for a blog article, seeking freelance
+          services for website or app development, or if you just want to get in touch, please
+          don&apos;t hesitate to reach out!
         </p>
       </SectionTextContainer>
 
@@ -574,37 +552,6 @@ const ContactSection = () => {
             placeholder="I want to build..."
           ></textarea>
         </div>
-        <div className="w-[80%] sm:w-[50%]">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text text-base-100">Project Type*</span>
-            </label>
-            <div>
-              <label className="label cursor-pointer justify-start">
-                <input
-                  type="radio"
-                  name="radio-10"
-                  className="radio bg-slate-200 checked:bg-accent mr-[12px]"
-                  checked={newProject}
-                  onChange={(e) => setNewProject(e.target.checked)}
-                />
-                <span className="label-text text-base-100">Building a new project</span>
-              </label>
-            </div>
-            <div>
-              <label className="label cursor-pointer justify-start">
-                <input
-                  type="radio"
-                  name="radio-10"
-                  className="radio bg-slate-200 checked:bg-accent mr-[12px]"
-                  checked={!newProject}
-                  onChange={(e) => setNewProject(!e.target.checked)}
-                />
-                <span className="label-text text-base-100">Improving an existing project</span>
-              </label>
-            </div>
-          </div>
-        </div>
         <button
           className="btn normal-case w-[144px] my-[24px]"
           onClick={handleSubmit}
@@ -634,8 +581,8 @@ const HomeContent = () => {
       <HeroSection />
       <div className="bg-white px-0 md:px-[144px]">
         <AboutSection />
-        <ServicesSection />
-        <ProcessSection />
+        <SkillsSection />
+        <ProjectsSection />
         <ContactSection />
       </div>
     </Layout>

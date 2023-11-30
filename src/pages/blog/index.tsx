@@ -27,9 +27,10 @@ const BlogPageContent = () => {
       <div className="my-[144px]">
         <h1 className="text-4xl font-bold">The Authentic Development Blog</h1>
         <p className="text-lg py-[12px] max-w-[90%] sm:max-w-[70%] lg:max-w-[50%] 2xl:max-w-[40%]">
-          Discover expert insights on Micro-SaaS innovation—from idea validation and key performance
-          indicators, to sustainable growth and beyond. Your go-to resource for all things
-          Micro-SaaS.
+          Embark on a journey with me as we delve into the latest technologies and innovative
+          methods to enhance developer workflows. My explorations span a diverse range from crafting
+          front-end designs in Figma to implementing them in React, establishing backend APIs,
+          managing infrastructure provisioning, and focusing on alerting and monitoring systems.
         </p>
       </div>
 
