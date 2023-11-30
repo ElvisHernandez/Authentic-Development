@@ -26,11 +26,12 @@ const BlogPageContent = () => {
     <div className=" py-[64px] px-[48px] min-h-screen bg-white">
       <div className="my-[144px]">
         <h1 className="text-4xl font-bold">The Authentic Development Blog</h1>
-        <p className="text-lg py-[12px] max-w-[90%] sm:max-w-[70%] lg:max-w-[50%] 2xl:max-w-[40%]">
+        <p className="text-base py-[12px] max-w-[90%] sm:max-w-[70%] lg:max-w-[50%] 2xl:max-w-[40%]">
           Embark on a journey with me as we delve into the latest technologies and innovative
           methods to enhance developer workflows. My explorations span a diverse range from crafting
           front-end designs in Figma to implementing them in React, establishing backend APIs,
-          managing infrastructure provisioning, and focusing on alerting and monitoring systems.
+          managing infrastructure provisioning, and focusing on alerting and monitoring systems and
+          more.
         </p>
       </div>
 
