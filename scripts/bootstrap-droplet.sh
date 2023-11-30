@@ -48,7 +48,7 @@ su - elvis <<EOF
     pm2 start "npm run start" --name "blitz";
     pm2 save;
 
-    (crontab -l 2>/dev/null; echo "0 * * * * aws s3 cp /home/ubuntu/app/db/db.sqlite s3://${s3_config_bucket}/db.sqlite-\$(date +\%F-\%T) >> /home/ubuntu/cron.log 2>&1") | crontab -
+    (crontab -l 2>/dev/null; echo "0 * * * * aws s3 cp /home/elvis/app/db/db.sqlite s3://${s3_config_bucket}/db.sqlite-\$(date +\%F-\%T) >> /home/elvis/cron.log 2>&1") | crontab -
 
     EOT
 EOF

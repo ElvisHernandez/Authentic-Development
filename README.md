@@ -1,25 +1,16 @@
 # Authentic Development Website
 
+This BlitzJS app is the home of Authentic Development which serves a portfolio website for Authentic Development LLC and me, Elvis Hernandez.
 
-## Todos - 09/25/23
+This app was built using BlitzJS which is a wrapper around NextJS that includes a few more things out of the box like Prisma ORM, tRPC, and authentication. Its the closest thing to Ruby on Rails in the Typescript community. I highly recommend it for anyone looking for a full-stack solution to building apps with Typescript.
 
-- [X] Rewrite site copy to empasize Micro-SaaS instead of regular SaaS
-
-- [X] Fix Process section on landing page for app view
-    - [X] Only Discovery + Planning section comes out on modal
-    - [X] Probably add section name to modal
-    - [X] Add some arrows to modal for easier switching of process sections
-
-- [ ] Write intro first blog
-    - [X] Pick topic
-        - [X] Why Micro-SaaS?
-        ???
+The entire front-end of the website was a custom design inspired by other designs found on Dribbble and randoms images found on Unsplash.
 
 
-## Todos - 09/26/23
-- [ ] Finish first blog article
-- [ ] Update social media links on website
-    - [ ] Make Authentic Development LinkedIn
-    - [ ] Make Authentic Development Twitter
-    - [ ] Make Authentic Development YouTube????
-- [ ] Release first blog article??
+![Hero section of Authentic Development Website](/public/authentic-development-blog.png)
+
+There's also a custom built admin section that uses AWS S3 (image storage), and SQLite (post storage) to manage/create blog posts with a custom markdown editor.
+
+![Authentic Development Blog Admin Panel](/public/adb-admin.png)
+
+Lastly, the blog is deployed to Digital Ocean via Terraform and has CI/CD via Github Actions.
