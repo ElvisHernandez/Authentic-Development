@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkHighlight from "remark-highlight.js";
+import "highlight.js/styles/default.css";
 import {
   MdPreview,
   MdOutlineFullscreen,
@@ -56,7 +58,7 @@ function UnmemoizedMarkdown(props: { value: string }) {
   const noop = () => {};
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, remarkHighlight]}
       components={{
         h1: ({ node, ...props }) => (
           <>
