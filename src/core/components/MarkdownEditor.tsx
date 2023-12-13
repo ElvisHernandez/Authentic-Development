@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkHighlight from "remark-highlight.js";
-import "highlight.js/styles/default.css";
+import "highlight.js/styles/night-owl.css";
 import {
   MdPreview,
   MdOutlineFullscreen,
@@ -159,6 +159,7 @@ function UnmemoizedMarkdown(props: { value: string }) {
             </span>
           );
         },
+        code: ({ node, ...props }) => <code {...props} style={{ borderRadius: "5px" }}></code>,
       }}
     >
       {props.value ?? ""}
