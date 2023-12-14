@@ -142,7 +142,7 @@ function UnmemoizedMarkdown(props: { value: string }) {
             if (isMediumImage) return 500;
             if (isLargeImage) return 1000;
 
-            throw new Error(`image ${props.src} size not supported`);
+            return 1000;
           };
 
           return (
