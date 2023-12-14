@@ -44,7 +44,15 @@ const SpecificBlogPageContent: BlitzPage = () => {
   return (
     <div className="py-[64px] bg-white min-h-screen">
       <h1 className="text-2xl sm:text-4xl font-bold text-center mt-[144px]">
-        {title}: <br /> <span>{subtitle}</span>
+        {!!subtitle ? (
+          <>
+            {title}: <br /> <span>{subtitle}</span>
+          </>
+        ) : (
+          <>
+            {title} <br />
+          </>
+        )}
       </h1>
       <div className="flex justify-center items-center my-[24px]">
         <div className="avatar mr-[12px]">
