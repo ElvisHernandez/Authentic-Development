@@ -12,5 +12,8 @@ export default resolver.pipe(resolver.zod(GetPostsSchema), async (args) => {
     where: {
       published: args.published ?? undefined,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 });

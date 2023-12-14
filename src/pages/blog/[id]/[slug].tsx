@@ -84,22 +84,13 @@ const SpecificBlogPageContent: BlitzPage = () => {
       </section>
 
       <section className="mx-[5%] sm:mx-[10%] lg:mx-[20%]">
-        <h2 className="font-bold text-xl text-center">Get a Free Consult</h2>
-        <div className="divider my-0"></div>{" "}
-        <p>
-          Want to take the plunge into the Micro-SaaS world but still have questions or need
-          guidance? Feel free to reach out for a free consultation. It&apos;s always helpful to have
-          experienced guidance when embarking on the journey of starting a Micro-SaaS. With the
-          right tools, knowledge, and support, your Micro-SaaS could flourish into a sustainable and
-          profitable venture.
-        </p>
         <div className="flex justify-center mt-[24px]">
           <Link
             href={`/#contact`}
             className="btn btn-accent normal-case w-[140px] "
             onClick={(e) => handleLinkClickSmoothScroll(e, "contact")}
           >
-            Free Consult
+            Get in touch
           </Link>
         </div>
       </section>
