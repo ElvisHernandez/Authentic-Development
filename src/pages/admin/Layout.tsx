@@ -40,7 +40,7 @@ const withSuspense = (Component: React.FC) => {
 function ContextProvider(props: Props) {
   const [page, setPage] = useState(Page.posts);
   const [thumbnailPage, setThumbnailPage] = useState(0);
-  const [thumbnailsPerPage, setThumnailsPerPage] = useState(10);
+  const [thumbnailsPerPage, setThumnailsPerPage] = useState(100);
 
   const [{ paginatedThumbnailUrls }, { refetch: fetchThumbnails }] = useQuery(getThumbnailsQuery, {
     thumbnailsPerPage,
