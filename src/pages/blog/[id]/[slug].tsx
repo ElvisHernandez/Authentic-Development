@@ -81,6 +81,7 @@ const SpecificBlogPageContent: BlitzPage = () => {
             width={1000}
             src={post.thumbnailUrl.replace("small", "large")}
             alt={post.description}
+            priority
           />
         </div>
       )}
