@@ -77,7 +77,7 @@ resource "digitalocean_droplet" "web" {
 # }
 
 resource "digitalocean_firewall" "authentic_development" {
-  name = "only-22-80-and-443"
+  name = "adb-only-22-80-and-443"
 
   droplet_ids = [digitalocean_droplet.web.id]
 
